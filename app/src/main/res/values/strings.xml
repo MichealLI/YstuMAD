@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">YstuMAD</string>
+
+    <string name="tabs_height">60dp</string>
+    <string name="tabs_item_tab1"> 练习</string>
+    <string name="tabs_item_tab2"> 分析</string>
+    <string name="tabs_item_tab3">错题</string>
+    <string name="tabs_item_tab_size">25dp</string>
+    <string name="tabs_item_textSize">18sp</string>
+
 </resources>

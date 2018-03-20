@@ -128,7 +128,6 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                         } else {
                             subjectResult.setText(numContent);
                         }
-
                     }
                     break;
             }

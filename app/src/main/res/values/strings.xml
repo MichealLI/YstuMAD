@@ -33,6 +33,8 @@
     <string name="max_num_number">输入的数不能超过3位</string>
 
     <string name="the_first_page">这已经是第一题了</string>
-    <string name="the_last_page">这是最后一题了</string>
+    <string name="the_last_page">这是最后一题了,是否提交答案</string>
+    <string name="commit">OK</string>
+    <string name="cancel">CANCEL</string>
 
 </resources>

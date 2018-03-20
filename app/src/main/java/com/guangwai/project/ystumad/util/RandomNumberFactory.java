@@ -25,20 +25,20 @@ public class RandomNumberFactory {
      *
      * @return
      */
-    public static OperationModel getRandomModel(int operation, int max) {
+    public static OperationModel getRandomModel(int operation, int max, int mode) {
         OperationModel model = null;
         switch (operation) {
             case Constant.OPERATION_ADD:
-                model = getAddRandomModel(max);
+                model = getAddRandomModel(max, mode);
                 break;
             case Constant.OPERATION_REDUCE:
-                model = getReduceRandomModel(max);
+                model = getReduceRandomModel(max, mode);
                 break;
             case Constant.OPERATION_MULTIPLY:
-                model = getMultiplyRandomModel(max);
+                model = getMultiplyRandomModel(max, mode);
                 break;
             case Constant.OPERATION_DIVIDE:
-                model = getDivideAddRandomModel(max);
+                model = getDivideAddRandomModel(max, mode);
                 break;
 
         }
@@ -50,7 +50,7 @@ public class RandomNumberFactory {
      *
      * @return
      */
-    private static OperationModel getAddRandomModel(int max) {
+    private static OperationModel getAddRandomModel(int max, int mode) {
         Random random = new Random();
         int firstNum = random.nextInt(max + 1); // 0 - 110的随机数
         int secondNum = random.nextInt(max + 1);
@@ -59,7 +59,7 @@ public class RandomNumberFactory {
         model.setFirstNum(firstNum);
         model.setSecondNum(secondNum);
         model.setOperation(Constant.OPERATION_ADD);
-
+        model.setMode(mode);
         return model;
     }
 
@@ -68,7 +68,7 @@ public class RandomNumberFactory {
      *
      * @return
      */
-    private static OperationModel getReduceRandomModel(int max) {
+    private static OperationModel getReduceRandomModel(int max, int mode) {
         Random random = new Random();
         int firstNum = random.nextInt(max + 1); // 0 - 110的随机数
         int secondNum = random.nextInt(firstNum + 1);
@@ -78,6 +78,7 @@ public class RandomNumberFactory {
         model.setSecondNum(secondNum);
         model.setOperation(Constant.OPERATION_REDUCE);
         model.setResultNum(firstNum - secondNum);
+        model.setMode(mode);
         return model;
     }
 
@@ -86,7 +87,7 @@ public class RandomNumberFactory {
      *
      * @return
      */
-    private static OperationModel getMultiplyRandomModel(int max) {
+    private static OperationModel getMultiplyRandomModel(int max, int mode) {
         Random random = new Random();
         int firstNum = random.nextInt(max + 1); // 0 - 110的随机数
         int secondNum;
@@ -100,6 +101,7 @@ public class RandomNumberFactory {
         model.setSecondNum(secondNum);
         model.setOperation(Constant.OPERATION_MULTIPLY);
         model.setResultNum(firstNum * secondNum);
+        model.setMode(mode);
         return model;
     }
 
@@ -108,7 +110,7 @@ public class RandomNumberFactory {
      *
      * @return
      */
-    private static OperationModel getDivideAddRandomModel(int max) {
+    private static OperationModel getDivideAddRandomModel(int max, int mode) {
         Random random = new Random();
         int firstNum = random.nextInt(max + 1); // 0 - 110的随机数
         int secondNum;
@@ -127,6 +129,7 @@ public class RandomNumberFactory {
         model.setSecondNum(secondNum);
         model.setOperation(Constant.OPERATION_DIVIDE);
         model.setResultNum(firstNum / secondNum);
+        model.setMode(mode);
         return model;
     }
 

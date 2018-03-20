@@ -10,6 +10,8 @@ public class OperationModel {
     private int secondNum;
     private int operation;
     private int resultNum;
+    private int mode; //哪种模式下的
+    private boolean isRight; //是否做对了
 
     public int getFirstNum() {
         return firstNum;
@@ -43,4 +45,19 @@ public class OperationModel {
         this.resultNum = resultNum;
     }
 
+    public int getMode() {
+        return mode;
+    }
+
+    public void setMode(int mode) {
+        this.mode = mode;
+    }
+
+    public boolean isRight() {
+        return isRight;
+    }
+
+    public void setRight(boolean right) {
+        isRight = right;
+    }
 }

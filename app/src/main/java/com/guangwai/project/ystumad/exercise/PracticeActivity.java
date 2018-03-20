@@ -38,6 +38,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.drakeet.materialdialog.MaterialDialog;
+
 /**
  * 做题的界面
  */
@@ -121,7 +123,12 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                     //把语音内容筛选数字
                     String numContent = getTheNumberFromAsr(arsContent);
                     if (numContent != null) {
-                        subjectResult.setText(numContent.substring(numContent.length() - 3, numContent.length()));
+                        if (numContent.length() > 3) {
+                            subjectResult.setText(numContent.substring(numContent.length() - 3, numContent.length()));
+                        } else {
+                            subjectResult.setText(numContent);
+                        }
+
                     }
                     break;
             }
@@ -189,7 +196,7 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
             int operation = RandomNumberFactory.getRandomOperation();
             if (operation == opera1 || operation == opera2) {
                 //符合当前模式
-                OperationModel model = RandomNumberFactory.getRandomModel(operation, max);
+                OperationModel model = RandomNumberFactory.getRandomModel(operation, max, Constant.SINGLE_MODE);
                 modelList.add(model);
                 count++;
             }
@@ -366,14 +373,39 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                     mainContent.startAnimation(nextOutAnimation);
                 } else {
                     //跳转到结果页面
-                    Toast.makeText(this, R.string.the_last_page, Toast.LENGTH_SHORT).show();
+                    //首先弹出是否提交答案的dialog
+                    final MaterialDialog mDialog = new MaterialDialog(this).setMessage(R.string.the_last_page).setPositiveButton(R.string.commit, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            //mDialog.dismiss();
+                            //确认提交答案
 
-                    SharedPreferences preferences = getSharedPreferences("MAD", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    int subjectSum = preferences.getInt("subject_sum", 0);
-                    subjectSum = subjectSum + num;      //记录做的总题数
-                    editor.putInt("subject_sum", subjectSum);
-                    editor.commit();
+                            SharedPreferences preferences = getSharedPreferences("MAD", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+
+                            int subjectSum = preferences.getInt("subject_sum", 0);
+                            subjectSum = subjectSum + num;      //记录做的总题数
+                            editor.putInt("subject_sum", subjectSum);
+
+                            int wrongNum = checkTheAnswer();
+                            int wrongSum = preferences.getInt("subject_wrong_sum", 0);
+                            wrongSum = wrongSum + wrongNum; //加上这次错的题数
+                            editor.putInt("subject_wrong_sum", wrongSum);
+
+                            editor.commit();
+
+                            //进行页面跳转
+
+                        }
+                    }).setNegativeButton(R.string.cancel, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+                    mDialog.show();
+
+
                 }
 
                 break;
@@ -430,6 +462,25 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                 addToReusltContent("0");
                 break;
         }
+    }
+
+    /**
+     * 检查用户输入的答案是否正常，返回错误数量
+     *
+     * @return
+     */
+    private int checkTheAnswer() {
+        int wrongCount = 0;
+        for (int i = 0; i < num; i++) {
+            OperationModel model = modelList.get(i);
+            if (model.getResultNum() != resultList.get(i)) {
+                wrongCount++;
+                model.setRight(false);
+            } else {
+                model.setRight(true);
+            }
+        }
+        return wrongCount;
     }
 
     /**

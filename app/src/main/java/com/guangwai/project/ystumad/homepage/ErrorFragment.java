@@ -23,6 +23,7 @@ public class ErrorFragment extends Fragment {
     }
 
     public static ErrorFragment newInstance() {
+
         ErrorFragment fragment = new ErrorFragment();
         return fragment;
     }

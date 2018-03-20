@@ -21,4 +21,9 @@ public class BreakModeFragment extends Fragment {
         View view = inflater.inflate(R.layout.exercise_break_mode, container, false);
         return view;
     }
+
+    public static BreakModeFragment newInstance() {
+        BreakModeFragment fragment = new BreakModeFragment();
+        return fragment;
+    }
 }

@@ -9,7 +9,7 @@
         android:id="@+id/top_tabs"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="#6495ED"
+        android:background="#009688"
         app:pstsDividerColor="#FFFFFF"
         app:pstsIndicatorHeight="4dp"
         app:pstsTabPaddingLeftRight="20dp" />

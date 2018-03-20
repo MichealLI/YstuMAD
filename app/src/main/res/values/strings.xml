@@ -1,11 +1,38 @@
 <resources>
     <string name="app_name">YstuMAD</string>
-
+    <string name="app_title">口算题</string>
+    <string name="app_welcome">欢迎来到小学生口算训练营</string>
+    <string name="app_practice_mode">练习模式</string>
+    <string name="app_break_mode">闯关模式</string>
     <string name="tabs_height">60dp</string>
     <string name="tabs_item_tab1"> 练习</string>
     <string name="tabs_item_tab2"> 分析</string>
     <string name="tabs_item_tab3">错题</string>
     <string name="tabs_item_tab_size">25dp</string>
     <string name="tabs_item_textSize">18sp</string>
+
+    <string name="subject_difficulty">难度选择：</string>
+    <string name="subject_number">题量设置：</string>
+    <string name="subject_number_tip">建议10-60最佳</string>
+    <string name="subject_range">取值范围：</string>
+    <string name="single_mode">简单（+、-）</string>
+    <string name="mixed_mode">复杂（*、/）</string>
+
+    <string name="app_begin">开始答题</string>
+
+    <string name="subject_is_empty">题量不能为空，请输入再作答</string>
+
+    <string name="pratice_doing">正在答题</string>
+    <string name="pratice_time">用时 </string>
+
+    <string name="last_one">上一题</string>
+    <string name="next_one">下一题</string>
+    <string name="clear">清除</string>
+    <string name="pause_test">暂停练习</string>
+
+    <string name="max_num_number">输入的数不能超过3位</string>
+
+    <string name="the_first_page">这已经是第一题了</string>
+    <string name="the_last_page">这是最后一题了</string>
 
 </resources>

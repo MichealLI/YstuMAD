@@ -1,4 +1,4 @@
-package com.guangwai.project.ystumad;
+package com.guangwai.project.ystumad.homepage;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,9 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.guangwai.project.ystumad.R;
 import com.guangwai.project.ystumad.exercise.BreakModeFragment;
 import com.guangwai.project.ystumad.exercise.ExercisePagerAdapter;
 import com.guangwai.project.ystumad.exercise.PracticeModeFragment;
+import com.guangwai.project.ystumad.util.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,13 @@ public class ExerciseFragment extends Fragment {
 
     private Context mContext;
 
+    private int mode = Constant.PRATICE_MODE;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mode = getArguments().getInt("mode", Constant.PRATICE_MODE);
+    }
 
     @Nullable
     @Override
@@ -39,8 +48,8 @@ public class ExerciseFragment extends Fragment {
 
         //初始化fragment
         fragmentList = new ArrayList<>();
-        Fragment practiceMode = new PracticeModeFragment();
-        Fragment breakMode = new BreakModeFragment();
+        Fragment practiceMode = PracticeModeFragment.newInstance();
+        Fragment breakMode = BreakModeFragment.newInstance();
         fragmentList.add(practiceMode);
         fragmentList.add(breakMode);
 
@@ -48,10 +57,11 @@ public class ExerciseFragment extends Fragment {
         FragmentManager fm = getActivity().getSupportFragmentManager();
         ExercisePagerAdapter adapter = new ExercisePagerAdapter(fm, fragmentList);
         exerciseViewPager.setAdapter(adapter);
+        exerciseViewPager.setCurrentItem(mode);
 
         //初始化顶部tabs
         PagerSlidingTabStrip tabs = view.findViewById(R.id.top_tabs);
-        tabs.setTextColor(0xffFFBBFF);
+        tabs.setTextColor(0xffffffff);
         tabs.setShouldExpand(true);
         tabs.setViewPager(exerciseViewPager);
 
@@ -60,8 +70,11 @@ public class ExerciseFragment extends Fragment {
     }
 
 
-    public static ExerciseFragment newInstance() {
+    public static ExerciseFragment newInstance(int mode) {
         ExerciseFragment fragment = new ExerciseFragment();
+        Bundle args = new Bundle();
+        args.putInt("mode", mode);
+        fragment.setArguments(args);
         return fragment;
     }
 }

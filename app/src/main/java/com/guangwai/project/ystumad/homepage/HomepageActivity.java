@@ -1,4 +1,4 @@
-package com.guangwai.project.ystumad;
+package com.guangwai.project.ystumad.homepage;
 
 
 import android.os.Bundle;
@@ -12,13 +12,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.guangwai.project.ystumad.R;
+import com.guangwai.project.ystumad.util.Constant;
+
 /**
  * app主页
  */
 public class HomepageActivity extends FragmentActivity implements View.OnClickListener {
-    public static final int TAB1_INDEX = 1;
-    public static final int TAB2_INDEX = 2;
-    public static final int TAB3_INDEX = 3;
 
     private LinearLayout tab1; //底部导航栏
     private LinearLayout tab2;
@@ -34,7 +34,7 @@ public class HomepageActivity extends FragmentActivity implements View.OnClickLi
     private Fragment fragmentTab2;
     private Fragment fragmentTab3;
 
-    private int currentIndex = TAB1_INDEX; //当前所在的fragment
+    private int currentIndex = Constant.TAB1_INDEX; //当前所在的fragment
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,8 @@ public class HomepageActivity extends FragmentActivity implements View.OnClickLi
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_homepage);
         initTabView();
-        setCurrentTab(TAB1_INDEX);
+        setCurrentTab(Constant.TAB1_INDEX);
+
     }
 
     /**
@@ -77,21 +78,21 @@ public class HomepageActivity extends FragmentActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tab1:
-                if (currentIndex != TAB1_INDEX) {
-                    setCurrentTab(TAB1_INDEX);
-                    currentIndex = TAB1_INDEX;
+                if (currentIndex != Constant.TAB1_INDEX) {
+                    setCurrentTab(Constant.TAB1_INDEX);
+                    currentIndex = Constant.TAB1_INDEX;
                 }
                 break;
             case R.id.tab2:
-                if (currentIndex != TAB2_INDEX) {
-                    setCurrentTab(TAB2_INDEX);
-                    currentIndex = TAB2_INDEX;
+                if (currentIndex != Constant.TAB2_INDEX) {
+                    setCurrentTab(Constant.TAB2_INDEX);
+                    currentIndex = Constant.TAB2_INDEX;
                 }
                 break;
             case R.id.tab3:
-                if (currentIndex != TAB3_INDEX) {
-                    setCurrentTab(TAB3_INDEX);
-                    currentIndex = TAB3_INDEX;
+                if (currentIndex != Constant.TAB3_INDEX) {
+                    setCurrentTab(Constant.TAB3_INDEX);
+                    currentIndex = Constant.TAB3_INDEX;
                 }
                 break;
             default:
@@ -108,31 +109,32 @@ public class HomepageActivity extends FragmentActivity implements View.OnClickLi
         FragmentTransaction transaction = fm.beginTransaction();
         hideFragment(transaction); //首先把所有的fragment隐藏了
         switch (index) {
-            case TAB1_INDEX:
+            case Constant.TAB1_INDEX:
                 tab1Image.setImageDrawable(getResources().getDrawable(R.drawable.exercise));
                 tab1Text.setTextColor(0xff9AC0CD);
+                int mode = getIntent().getIntExtra("mode", Constant.PRATICE_MODE);
                 if (fragmentTab1 == null) {
-                    fragmentTab1 = ExerciseFragment.newInstance();
+                    fragmentTab1 = ExerciseFragment.newInstance(mode);
                     transaction.add(R.id.fragment_content, fragmentTab1);
                 } else {
                     transaction.show(fragmentTab1);
                 }
                 break;
-            case TAB2_INDEX:
+            case Constant.TAB2_INDEX:
                 tab2Image.setImageDrawable(getResources().getDrawable(R.drawable.analyse_seleceted));
                 tab2Text.setTextColor(0xff9AC0CD);
                 if (fragmentTab2 == null) {
-                    fragmentTab2 = new AnalyseFragment();
+                    fragmentTab2 = AnalyseFragment.newInstance();
                     transaction.add(R.id.fragment_content, fragmentTab2);
                 } else {
                     transaction.show(fragmentTab2);
                 }
                 break;
-            case TAB3_INDEX:
+            case Constant.TAB3_INDEX:
                 tab3Image.setImageDrawable(getResources().getDrawable(R.drawable.error_selected));
                 tab3Text.setTextColor(0xff9AC0CD);
                 if (fragmentTab3 == null) {
-                    fragmentTab3 = new ErrorFragment();
+                    fragmentTab3 = ErrorFragment.newInstance();
                     transaction.add(R.id.fragment_content, fragmentTab3);
                 } else {
                     transaction.show(fragmentTab3);

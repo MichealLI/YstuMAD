@@ -15,6 +15,6 @@ public class BaseActivity extends Activity {
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        int i = 1;
+        int i = 2;
     }
 }

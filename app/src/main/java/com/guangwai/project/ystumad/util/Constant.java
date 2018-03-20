@@ -8,7 +8,7 @@ package com.guangwai.project.ystumad.util;
 public class Constant {
     public static final String[] TITILES = {"练习模式", "闯关模式"};
 
-    public static final String DB_NAME = "MAD";
+    public static final String DB_NAME = "madData.db";
 
     public static final int TAB1_INDEX = 1;
     public static final int TAB2_INDEX = 2;

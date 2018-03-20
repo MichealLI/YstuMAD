@@ -29,6 +29,7 @@ import com.google.gson.Gson;
 import com.guangwai.project.ystumad.R;
 import com.guangwai.project.ystumad.base.BaseActivity;
 import com.guangwai.project.ystumad.util.Constant;
+import com.guangwai.project.ystumad.util.MADDBManager;
 import com.guangwai.project.ystumad.util.OperationModel;
 import com.guangwai.project.ystumad.util.RandomNumberFactory;
 
@@ -66,7 +67,7 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
     private TextView nextOne;
     private TextView clear;
 
-    private LinearLayout pause;
+    private TextView pause;
     private TextView page;
 
     private Chronometer practiceTimer;
@@ -77,7 +78,7 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
     private Animation lastInAnimation;  //上一题的进入动画
     private Animation lastOutAnimation; //上一题的离开动画
 
-    private static List<OperationModel> modelList; //保存题目数据
+    private static ArrayList<OperationModel> modelList; //保存题目数据
     private List<Integer> resultList; //保存用户输入的结果
 
     private static int currentIndex = 0; //当前所在的题数
@@ -121,7 +122,10 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                     break;
                 case Constant.ASR_END:
                     //把语音内容筛选数字
-                    String numContent = getTheNumberFromAsr(arsContent);
+                    String numContent = null;
+                    if (arsContent != null) {
+                        numContent = getTheNumberFromAsr(arsContent);
+                    }
                     if (numContent != null) {
                         if (numContent.length() > 3) {
                             subjectResult.setText(numContent.substring(numContent.length() - 3, numContent.length()));
@@ -363,20 +367,21 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.next_one:
+                //首先保存输入的结果
+                if (!TextUtils.isEmpty(subjectResult.getText())) {
+                    int reuslt = Integer.parseInt(subjectResult.getText().toString());
+                    resultList.set(currentIndex, reuslt);
+                }
                 if (currentIndex < num - 1) {
-                    //首先保存输入的结果
-                    if (!TextUtils.isEmpty(subjectResult.getText())) {
-                        int reuslt = Integer.parseInt(subjectResult.getText().toString());
-                        resultList.set(currentIndex, reuslt);
-                    }
                     mainContent.startAnimation(nextOutAnimation);
                 } else {
                     //跳转到结果页面
                     //首先弹出是否提交答案的dialog
-                    final MaterialDialog mDialog = new MaterialDialog(this).setMessage(R.string.the_last_page).setPositiveButton(R.string.commit, new View.OnClickListener() {
+                    final MaterialDialog mDialog = new MaterialDialog(this);
+                    mDialog.setMessage(R.string.the_last_page).setPositiveButton(R.string.commit, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            //mDialog.dismiss();
+                            mDialog.dismiss();
                             //确认提交答案
 
                             SharedPreferences preferences = getSharedPreferences("MAD", Context.MODE_PRIVATE);
@@ -393,17 +398,27 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
 
                             editor.commit();
 
-                            //进行页面跳转
+                            //首先把错题写进数据库
+                            MADDBManager manager = new MADDBManager(PracticeActivity.this);
+                            manager.addSujbect(modelList);
+
+
+                            //再进行页面跳转
+                            Intent intent = new Intent(PracticeActivity.this, ExerciseResultActivity.class);
+                            intent.putExtra("wrongNum", wrongNum);
+                            intent.putParcelableArrayListExtra("subject", modelList);
+                            intent.putExtra("usedTime", practiceTimer.getText().toString());
+                            startActivity(intent);
 
                         }
                     }).setNegativeButton(R.string.cancel, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
+                            mDialog.dismiss();
                         }
                     });
+                    mDialog.setCanceledOnTouchOutside(true);
                     mDialog.show();
-
 
                 }
 

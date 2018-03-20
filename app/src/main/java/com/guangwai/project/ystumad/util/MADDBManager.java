@@ -1,5 +1,6 @@
 package com.guangwai.project.ystumad.util;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -29,10 +30,22 @@ public class MADDBManager {
      */
     public void addSujbect(List<OperationModel> modelList) {
         database.beginTransaction();
-        String sql = "INSERT INTO subject VALUES(null, ?, ?, ?, ?, ?)";
+        //   String sql = "INSERT INTO subject VALUES(null, ?, ?, ?, ?, ?)";
         try {
             for (OperationModel model : modelList) {
-                database.execSQL(sql, new Object[]{model.getFirstNum(), model.getSecondNum(), model.getOperation(), model.getResultNum(), model.getMode()});
+                if (!model.isRight()) {
+                    //如果是错误的就写入数据库
+//                    database.execSQL(sql, new Object[]{model.getFirstNum(), model.getSecondNum(), model.getOperation(), model.getResultNum(), model.getMode()});
+                    ContentValues values = new ContentValues();
+                    values.put("firstNum", model.getFirstNum());
+                    values.put("secondNum", model.getSecondNum());
+                    values.put("operation", model.getOperation());
+                    values.put("resultNum", model.getResultNum());
+                    values.put("mode", model.getMode());
+                    database.insert("subject", null, values);
+                    //一定要写（这是个大坑）
+                    database.setTransactionSuccessful();
+                }
             }
         } catch (Exception e) {
             Log.e("Ming", "add is failed!!");
@@ -66,7 +79,8 @@ public class MADDBManager {
         String sql = "select * from subject";
         Cursor cursor = null;
         try {
-            cursor = database.rawQuery(sql, null);
+//            cursor = database.rawQuery(sql, null);
+            cursor = database.query("subject", null, null, null, null, null, null);
             while (cursor.moveToNext()) {
                 OperationModel model = new OperationModel();
                 model.setFirstNum(cursor.getInt(cursor.getColumnIndex("firstNum")));

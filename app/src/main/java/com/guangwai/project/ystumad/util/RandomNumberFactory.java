@@ -58,6 +58,7 @@ public class RandomNumberFactory {
         OperationModel model = new OperationModel();
         model.setFirstNum(firstNum);
         model.setSecondNum(secondNum);
+        model.setResultNum(firstNum + secondNum);
         model.setOperation(Constant.OPERATION_ADD);
         model.setMode(mode);
         return model;

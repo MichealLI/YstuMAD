@@ -26,13 +26,13 @@
         </ListView>
 
         <Button
-            android:id="@+id/practice_button"
+            android:id="@+id/practice_again"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="56dp"
             android:background="@drawable/begin_shape_corners"
             android:text="@string/pactice_again"
-            />
+            android:textColor="#ffffff"/>
     </LinearLayout>
 
 

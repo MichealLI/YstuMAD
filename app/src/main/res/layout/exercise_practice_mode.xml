@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DEDEDE"
     android:gravity="center"
     android:orientation="vertical">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +13,9 @@
         android:layout_marginRight="10dp"
         android:background="#FFFFFF"
         android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -76,9 +78,10 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/num_shape_corners"
+                android:cursorVisible="false"
                 android:inputType="number"
                 android:padding="10dp"
-                android:textCursorDrawable="@null"
+                android:text="5"
                 android:textSize="14dp" />
 
             <TextView
@@ -119,7 +122,7 @@
         android:id="@+id/do_begin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/begin_shape_corners"
         android:text="@string/app_begin" />
 </LinearLayout>

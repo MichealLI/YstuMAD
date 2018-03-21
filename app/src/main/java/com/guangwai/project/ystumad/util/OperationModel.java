@@ -1,10 +1,15 @@
 package com.guangwai.project.ystumad.util;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
 /**
  * Created by Ming on 2018/3/15.
  */
 
-public class OperationModel {
+public class OperationModel implements Parcelable {
 
     private int firstNum;
     private int secondNum;
@@ -60,4 +65,41 @@ public class OperationModel {
     public void setRight(boolean right) {
         isRight = right;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(firstNum);
+        parcel.writeInt(secondNum);
+        parcel.writeInt(operation);
+        parcel.writeInt(resultNum);
+        parcel.writeInt(mode);
+        parcel.writeByte((byte) (isRight ? 1 : 0));
+
+    }
+
+    public static final Parcelable.Creator<OperationModel> CREATOR = new Creator() {
+
+
+        @Override
+        public OperationModel createFromParcel(Parcel parcel) {
+            OperationModel model = new OperationModel();
+            model.setFirstNum(parcel.readInt());
+            model.setSecondNum(parcel.readInt());
+            model.setOperation(parcel.readInt());
+            model.setResultNum(parcel.readInt());
+            model.setMode(parcel.readInt());
+            model.setRight(parcel.readByte() != 0);
+            return model;
+        }
+
+        @Override
+        public OperationModel[] newArray(int size) {
+            return new OperationModel[size];
+        }
+    };
 }

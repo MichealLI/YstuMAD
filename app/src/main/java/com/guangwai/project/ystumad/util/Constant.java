@@ -8,7 +8,12 @@ package com.guangwai.project.ystumad.util;
 public class Constant {
     public static final String[] TITILES = {"练习模式", "闯关模式"};
 
-    public static final String DB_NAME = "MAD";
+    public static final String DB_NAME = "madData.db";
+
+    public static final String SHAREDPREFERENCES_NAME = "mad_pre";
+
+    public static final String ANALYSE_NAME = "analyse_data";
+
 
     public static final int TAB1_INDEX = 1;
     public static final int TAB2_INDEX = 2;
@@ -19,6 +24,8 @@ public class Constant {
 
     public static final int SINGLE_MODE = 0;
     public static final int MIXED_MODE = 1;
+    public static final int ANALYSE_ALL = 2;  //所有解析
+    public static final int ANALYSE_ERROR = 3; //错误解析
 
     public static final int OPERATION_ADD = 0; //加法
     public static final int OPERATION_REDUCE = 1; //减法

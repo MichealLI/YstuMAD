@@ -9,11 +9,12 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#9FB6CD"
+        android:layout_height="50dp"
+        android:background="#3e6c91"
         android:gravity="center"
         android:padding="6dp"
         android:text="@string/app_title"
+        android:textColor="#ffffff"
         android:textSize="22sp" />
 
     <LinearLayout
@@ -43,18 +44,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:background="#D1EEEE"
+            android:background="#3e6c91"
             android:gravity="center"
+            android:padding="10dp"
             android:text="@string/app_practice_mode"
-            android:textSize="20sp" />
+            android:textColor="#ffffff"
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/break_mode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#D1EEEE"
+            android:background="#3e6c91"
             android:gravity="center"
+            android:padding="10dp"
             android:text="@string/app_break_mode"
-            android:textSize="20sp" />
+            android:textColor="#ffffff"
+            android:textSize="22sp" />
     </LinearLayout>
 </LinearLayout>

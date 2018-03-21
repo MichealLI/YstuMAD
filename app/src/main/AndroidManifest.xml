@@ -39,7 +39,8 @@
             android:name="com.baidu.speech.VoiceRecognitionService"
             android:exported="false" />
 
-        <activity android:name=".exercise.ExerciseResultActivity"></activity>
+        <activity android:name=".exercise.ExerciseResultActivity" />
+        <activity android:name=".exercise.ExerciseAnalysisActivity"></activity>
     </application>
 
 </manifest>

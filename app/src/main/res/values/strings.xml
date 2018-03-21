@@ -28,7 +28,7 @@
     <string name="last_one">上一题</string>
     <string name="next_one">下一题</string>
     <string name="clear">清除</string>
-    <string name="pause_test">暂停练习</string>
+    <string name="pause_test">暂停</string>
 
     <string name="max_num_number">输入的数不能超过3位</string>
 
@@ -37,8 +37,14 @@
     <string name="commit">OK</string>
     <string name="cancel">CANCEL</string>
 
-    <string name="pactice_again">再次练习</string>
+    <string name="subject_num"> 总题数</string>
+    <string name="subject_right_num"> 正确题数</string>
+    <string name="used_time"> 总用时</string>
+    <string name="total_score"> 总分 : %d 分</string>
 
-
+    <string name="error_analysis">错题解析</string>
+    <string name="all_analysis">全部解析</string>
+    <string name="continue_do">继续练习</string>
+    <string name="subject_report">答题报告</string>
 
 </resources>

@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#009688"
+        android:background="#3e6c91"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -183,12 +183,12 @@
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/last_one"
+                    android:id="@+id/pause"
                     android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
                     android:gravity="center"
-                    android:text="@string/last_one"
-                    android:textColor="#009688"
+                    android:text="@string/pause_test"
+                    android:textColor="#3e6c91"
                     android:textSize="20sp" />
 
                 <TextView
@@ -205,14 +205,14 @@
                     android:layout_rowWeight="1"
                     android:gravity="center"
                     android:text="@string/clear"
-                    android:textColor="#009688"
+                    android:textColor="#3e6c91"
                     android:textSize="20sp" />
 
             </GridLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="6dp"
+                android:layout_height="4dp"
                 android:background="#CCCCCC" />
 
             <LinearLayout
@@ -221,28 +221,15 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
-                <LinearLayout
-                    android:id="@+id/pause"
+                <TextView
+                    android:id="@+id/last_one"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/pause" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="4dp"
-                        android:text="@string/pause_test"
-                        android:textSize="16sp" />
-                </LinearLayout>
+                    android:text="@string/last_one"
+                    android:textColor="#3e6c91"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/page"
@@ -260,6 +247,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/next_one"
+                    android:textColor="#3e6c91"
                     android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>

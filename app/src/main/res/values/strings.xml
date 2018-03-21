@@ -36,6 +36,7 @@
     <string name="the_last_page">这是最后一题了,是否提交答案</string>
     <string name="commit">OK</string>
     <string name="cancel">CANCEL</string>
+    <string name="pactice_again">再次练习</string>
 
     <string name="subject_num"> 总题数</string>
     <string name="subject_right_num"> 正确题数</string>

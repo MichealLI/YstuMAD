@@ -60,16 +60,17 @@ public class HomepageActivity extends FragmentActivity implements View.OnClickLi
         //初始化tab1
         tab1Text = tab1.findViewById(R.id.tab_text);
         tab1Image = tab1.findViewById(R.id.tab_image);
+        tab1Image.setImageDrawable(getResources().getDrawable(R.drawable.exercise_selected));
         //初始化tab2
         tab2Text = tab2.findViewById(R.id.tab_text);
         tab2Text.setText(R.string.tabs_item_tab2);
-        tab2Text.setTextColor(0xffCCCCCC);
+        tab2Text.setTextColor(0xffAAAAAA);
         tab2Image = tab2.findViewById(R.id.tab_image);
         tab2Image.setImageDrawable(getResources().getDrawable(R.drawable.analyse_unselecet));
         //初始化tab3
         tab3Text = tab3.findViewById(R.id.tab_text);
         tab3Text.setText(R.string.tabs_item_tab3);
-        tab3Text.setTextColor(0xffCCCCCC);
+        tab3Text.setTextColor(0xffAAAAAA);
         tab3Image = tab3.findViewById(R.id.tab_image);
         tab3Image.setImageDrawable(getResources().getDrawable(R.drawable.error_unselect));
     }
@@ -110,8 +111,8 @@ public class HomepageActivity extends FragmentActivity implements View.OnClickLi
         hideFragment(transaction); //首先把所有的fragment隐藏了
         switch (index) {
             case Constant.TAB1_INDEX:
-                tab1Image.setImageDrawable(getResources().getDrawable(R.drawable.exercise));
-                tab1Text.setTextColor(0xff9AC0CD);
+                tab1Image.setImageDrawable(getResources().getDrawable(R.drawable.exercise_selected));
+                tab1Text.setTextColor(0xff3e6c91);
                 int mode = getIntent().getIntExtra("mode", Constant.PRATICE_MODE);
                 if (fragmentTab1 == null) {
                     fragmentTab1 = ExerciseFragment.newInstance(mode);
@@ -122,7 +123,7 @@ public class HomepageActivity extends FragmentActivity implements View.OnClickLi
                 break;
             case Constant.TAB2_INDEX:
                 tab2Image.setImageDrawable(getResources().getDrawable(R.drawable.analyse_seleceted));
-                tab2Text.setTextColor(0xff9AC0CD);
+                tab2Text.setTextColor(0xff3e6c91);
                 if (fragmentTab2 == null) {
                     fragmentTab2 = AnalyseFragment.newInstance();
                     transaction.add(R.id.fragment_content, fragmentTab2);
@@ -132,7 +133,7 @@ public class HomepageActivity extends FragmentActivity implements View.OnClickLi
                 break;
             case Constant.TAB3_INDEX:
                 tab3Image.setImageDrawable(getResources().getDrawable(R.drawable.error_selected));
-                tab3Text.setTextColor(0xff9AC0CD);
+                tab3Text.setTextColor(0xff3e6c91);
                 if (fragmentTab3 == null) {
                     fragmentTab3 = ErrorFragment.newInstance();
                     transaction.add(R.id.fragment_content, fragmentTab3);
@@ -165,13 +166,13 @@ public class HomepageActivity extends FragmentActivity implements View.OnClickLi
      * 全部设置为未选中的图标和字体颜色
      */
     private void resetTab() {
-        tab1Image.setImageDrawable(getResources().getDrawable(R.drawable.exercise));
+        tab1Image.setImageDrawable(getResources().getDrawable(R.drawable.exercise_unselect));
         tab2Image.setImageDrawable(getResources().getDrawable(R.drawable.analyse_unselecet));
         tab3Image.setImageDrawable(getResources().getDrawable(R.drawable.error_unselect));
 
-        tab1Text.setTextColor(0xffCCCCCC);
-        tab2Text.setTextColor(0xffCCCCCC);
-        tab3Text.setTextColor(0xffCCCCCC);
+        tab1Text.setTextColor(0xffAAAAAA);
+        tab2Text.setTextColor(0xffAAAAAA);
+        tab3Text.setTextColor(0xffAAAAAA);
 
     }
 }

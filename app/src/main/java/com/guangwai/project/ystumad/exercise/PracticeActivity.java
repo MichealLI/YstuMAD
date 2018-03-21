@@ -28,6 +28,7 @@ import com.baidu.speech.asr.SpeechConstant;
 import com.google.gson.Gson;
 import com.guangwai.project.ystumad.R;
 import com.guangwai.project.ystumad.base.BaseActivity;
+import com.guangwai.project.ystumad.homepage.HomepageActivity;
 import com.guangwai.project.ystumad.util.Constant;
 import com.guangwai.project.ystumad.util.MADDBManager;
 import com.guangwai.project.ystumad.util.OperationModel;
@@ -161,6 +162,7 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
         num = intent.getIntExtra("practice_num", 10);
         int max = intent.getIntExtra("practice_max", 10);
         int mode = intent.getIntExtra("practice_mode", Constant.SINGLE_MODE);
+        currentIndex = 0;
         initData(num, mode, max); //根据题量、题型和范围，随机生成题目
         initView();
         initAsr();
@@ -240,6 +242,7 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
         nextOne.setOnClickListener(this);
         lastOne.setOnClickListener(this);
         clear.setOnClickListener(this);
+        back.setOnClickListener(this);
 
         numOne.setOnClickListener(this);
         numTwo.setOnClickListener(this);
@@ -384,7 +387,7 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                             mDialog.dismiss();
                             //确认提交答案
 
-                            SharedPreferences preferences = getSharedPreferences("MAD", Context.MODE_PRIVATE);
+                            SharedPreferences preferences = getSharedPreferences(Constant.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = preferences.edit();
 
                             int subjectSum = preferences.getInt("subject_sum", 0);
@@ -409,6 +412,7 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                             intent.putParcelableArrayListExtra("subject", modelList);
                             intent.putExtra("usedTime", practiceTimer.getText().toString());
                             startActivity(intent);
+                            finish(); //销毁当前页面
 
                         }
                     }).setNegativeButton(R.string.cancel, new View.OnClickListener() {
@@ -444,6 +448,11 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.pause:
 
+                break;
+            case R.id.practice_back:
+                Intent intent = new Intent(this, HomepageActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             case R.id.num_one:
                 addToReusltContent("1");

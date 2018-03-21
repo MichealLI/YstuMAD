@@ -11,12 +11,13 @@
         android:id="@+id/fragment_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:background="@drawable/bg" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#E0EEEE"
+        android:background="#DEDEDE"
         android:gravity="center"
         android:orientation="horizontal">
 

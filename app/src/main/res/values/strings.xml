@@ -47,4 +47,8 @@
     <string name="continue_do">继续练习</string>
     <string name="subject_report">答题报告</string>
 
+    <string name="break_introduce">闯关介绍</string>
+    <string name="break_introduce_content">一共20个关卡，完成上一个关卡才能解锁下一个关卡，全部挑战完成后，想继续挑战可以重置关卡</string>
+    <string name="reset_break">重置关卡</string>
+
 </resources>

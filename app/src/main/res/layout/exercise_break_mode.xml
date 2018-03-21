@@ -2,11 +2,219 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="闯关模式"
-        android:textSize="28sp" />
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingBottom="6dp"
+        android:paddingTop="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/break_logo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/break_introduce"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/break_introduce_content"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCCCCC" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:columnCount="4"
+                android:rowCount="5"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/break_1"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:gravity="center"
+                    android:src="@drawable/lock" />
+
+                <ImageView
+                    android:id="@+id/break_2"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:gravity="center"
+                    android:src="@drawable/lock" />
+
+                <ImageView
+                    android:id="@+id/break_3"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:gravity="center"
+                    android:src="@drawable/lock" />
+
+                <ImageView
+                    android:id="@+id/break_4"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:gravity="center"
+                    android:src="@drawable/lock" />
+
+                <ImageView
+                    android:id="@+id/break_5"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:gravity="center"
+                    android:src="@drawable/lock" />
+
+                <ImageView
+                    android:id="@+id/break_6"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:gravity="center"
+                    android:src="@drawable/lock" />
+
+                <ImageView
+                    android:id="@+id/break_7"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:gravity="center"
+                    android:src="@drawable/lock" />
+
+                <ImageView
+                    android:id="@+id/break_8"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:gravity="center"
+                    android:src="@drawable/lock" />
+
+                <ImageView
+                    android:id="@+id/break_9"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:gravity="center"
+                    android:src="@drawable/lock" />
+
+                <ImageView
+                    android:id="@+id/break_10"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:gravity="center"
+                    android:src="@drawable/lock" />
+
+                <ImageView
+                    android:id="@+id/break_11"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:gravity="center"
+                    android:src="@drawable/lock" />
+
+                <ImageView
+                    android:id="@+id/break_12"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:gravity="center"
+                    android:src="@drawable/lock" />
+
+                <ImageView
+                    android:id="@+id/break_13"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:gravity="center"
+                    android:src="@drawable/lock" />
+
+                <ImageView
+                    android:id="@+id/break_14"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:gravity="center"
+                    android:src="@drawable/lock" />
+
+                <ImageView
+                    android:id="@+id/break_15"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:gravity="center"
+                    android:src="@drawable/lock" />
+
+                <ImageView
+                    android:id="@+id/break_16"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:gravity="center"
+                    android:src="@drawable/lock" />
+
+                <ImageView
+                    android:id="@+id/break_17"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:gravity="center"
+                    android:src="@drawable/lock" />
+
+                <ImageView
+                    android:id="@+id/break_18"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:gravity="center"
+                    android:src="@drawable/lock" />
+
+                <ImageView
+                    android:id="@+id/break_19"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:gravity="center"
+                    android:src="@drawable/lock" />
+
+                <ImageView
+                    android:id="@+id/break_20"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:gravity="center"
+                    android:src="@drawable/lock" />
+            </GridLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="6dp"
+        android:layout_weight="1"
+        android:background="#3e6c91"
+        android:text="@string/reset_break"
+        android:textColor="#ffffff"
+        android:textSize="16sp" />
 </LinearLayout>

@@ -30,6 +30,7 @@ import com.guangwai.project.ystumad.R;
 import com.guangwai.project.ystumad.base.BaseActivity;
 import com.guangwai.project.ystumad.homepage.HomepageActivity;
 import com.guangwai.project.ystumad.util.Constant;
+import com.guangwai.project.ystumad.util.DataSaveUtil;
 import com.guangwai.project.ystumad.util.MADDBManager;
 import com.guangwai.project.ystumad.util.OperationModel;
 import com.guangwai.project.ystumad.util.RandomNumberFactory;
@@ -90,6 +91,10 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
 
     private String arsContent; //语音输入的内容
 
+    private int entranceMode; //哪种模式进来的
+
+    private int currentBreakNum; //闯关模式下，第几关进来的
+
     @SuppressLint("HandlerLeak")
     private Handler uiHandler = new Handler() {
         @Override
@@ -100,13 +105,17 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                     currentIndex++;
                     setSubjectContent(currentIndex);
                     setCurrentPage(currentIndex, num);
-                    if (resultList.get(currentIndex) != -1) {
-                        subjectResult.setText(resultList.get(currentIndex) + "");
-                    } else {
+                    if (entranceMode == Constant.PRATICE_MODE) {
+                        if (resultList.get(currentIndex) != -1) {
+                            subjectResult.setText(resultList.get(currentIndex) + "");
+                        } else {
+                            //清空
+                            subjectResult.setText("");
+                        }
+                    } else if (entranceMode == Constant.BREAK_MODE) {
                         //清空
                         subjectResult.setText("");
                     }
-
                     mainContent.startAnimation(nextInAnimation);
                     break;
                 case Constant.LAST_ONE:
@@ -158,12 +167,22 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practice);
-        Intent intent = getIntent();
-        num = intent.getIntExtra("practice_num", 10);
-        int max = intent.getIntExtra("practice_max", 10);
-        int mode = intent.getIntExtra("practice_mode", Constant.SINGLE_MODE);
         currentIndex = 0;
-        initData(num, mode, max); //根据题量、题型和范围，随机生成题目
+        Intent intent = getIntent();
+        entranceMode = intent.getIntExtra("mode", Constant.PRATICE_MODE); //判断哪个入口进来的（练习或者闯关）
+        if (entranceMode == Constant.PRATICE_MODE) {
+            //练习模式
+            num = intent.getIntExtra("practice_num", 10);
+            int max = intent.getIntExtra("practice_max", 10);
+            int practiceMode = intent.getIntExtra("practice_mode", Constant.SINGLE_MODE);
+            initData(num, practiceMode, max); //根据题量、题型和范围，随机生成题目
+        } else if (entranceMode == Constant.BREAK_MODE) {
+            //闯关模式
+            modelList = intent.getParcelableArrayListExtra("break_subject");
+            currentBreakNum = intent.getIntExtra("currentBreakNum", 1);
+            num = modelList.size();
+        }
+
         initView();
         initAsr();
         setSubjectContent(currentIndex);
@@ -207,7 +226,6 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
             }
         }
     }
-
 
     /**
      * 初始化View
@@ -275,6 +293,10 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
             }
         });
 
+        if (entranceMode == Constant.BREAK_MODE) {
+            pause.setVisibility(View.INVISIBLE);
+            lastOne.setVisibility(View.INVISIBLE);
+        }
 
     }
 
@@ -370,61 +392,117 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.next_one:
-                //首先保存输入的结果
-                if (!TextUtils.isEmpty(subjectResult.getText())) {
-                    int reuslt = Integer.parseInt(subjectResult.getText().toString());
-                    resultList.set(currentIndex, reuslt);
-                }
-                if (currentIndex < num - 1) {
-                    mainContent.startAnimation(nextOutAnimation);
-                } else {
-                    //跳转到结果页面
-                    //首先弹出是否提交答案的dialog
-                    final MaterialDialog mDialog = new MaterialDialog(this);
-                    mDialog.setMessage(R.string.the_last_page).setPositiveButton(R.string.commit, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            mDialog.dismiss();
-                            //确认提交答案
+                if (entranceMode == Constant.PRATICE_MODE) {
+                    //练习模式下的操作
+                    //首先保存输入的结果
+                    if (!TextUtils.isEmpty(subjectResult.getText())) {
+                        int reuslt = Integer.parseInt(subjectResult.getText().toString());
+                        resultList.set(currentIndex, reuslt);
+                    }
+                    if (currentIndex < num - 1) {
+                        mainContent.startAnimation(nextOutAnimation);
+                    } else {
+                        //跳转到结果页面
+                        //首先弹出是否提交答案的dialog
+                        final MaterialDialog mDialog = new MaterialDialog(this);
+                        mDialog.setMessage(R.string.the_last_page).setPositiveButton(R.string.commit, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                mDialog.dismiss();
+                                //确认提交答案
+                                SharedPreferences preferences = getSharedPreferences(Constant.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = preferences.edit();
 
-                            SharedPreferences preferences = getSharedPreferences(Constant.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = preferences.edit();
+                                int subjectSum = preferences.getInt("subject_sum", 0);
+                                subjectSum = subjectSum + num;      //记录做的总题数
+                                editor.putInt("subject_sum", subjectSum);
 
-                            int subjectSum = preferences.getInt("subject_sum", 0);
-                            subjectSum = subjectSum + num;      //记录做的总题数
-                            editor.putInt("subject_sum", subjectSum);
+                                int wrongNum = checkTheAnswer();
+                                int wrongSum = preferences.getInt("subject_wrong_sum", 0);
+                                wrongSum = wrongSum + wrongNum; //加上这次错的题数
+                                editor.putInt("subject_wrong_sum", wrongSum);
 
-                            int wrongNum = checkTheAnswer();
-                            int wrongSum = preferences.getInt("subject_wrong_sum", 0);
-                            wrongSum = wrongSum + wrongNum; //加上这次错的题数
-                            editor.putInt("subject_wrong_sum", wrongSum);
+                                editor.commit();
 
-                            editor.commit();
-
-                            //首先把错题写进数据库
-                            MADDBManager manager = new MADDBManager(PracticeActivity.this);
-                            manager.addSujbect(modelList);
+                                //首先把错题写进数据库
+                                MADDBManager manager = new MADDBManager(PracticeActivity.this);
+                                manager.addSujbect(modelList);
 
 
-                            //再进行页面跳转
-                            Intent intent = new Intent(PracticeActivity.this, ExerciseResultActivity.class);
-                            intent.putExtra("wrongNum", wrongNum);
-                            intent.putParcelableArrayListExtra("subject", modelList);
-                            intent.putExtra("usedTime", practiceTimer.getText().toString());
-                            startActivity(intent);
-                            finish(); //销毁当前页面
+                                //再进行页面跳转
+                                Intent intent = new Intent(PracticeActivity.this, ExerciseResultActivity.class);
+                                intent.putExtra("wrongNum", wrongNum);
+                                intent.putParcelableArrayListExtra("subject", modelList);
+                                intent.putExtra("usedTime", practiceTimer.getText().toString());
+                                startActivity(intent);
+                                finish(); //销毁当前页面
 
+                            }
+                        }).setNegativeButton(R.string.cancel, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                mDialog.dismiss();
+                            }
+                        });
+                        mDialog.setCanceledOnTouchOutside(true);
+                        mDialog.show();
+
+                    }
+                } else if (entranceMode == Constant.BREAK_MODE) {
+                    //闯关模式下的操作
+                    //首先读取输入的结果
+                    int reuslt = -1;
+                    if (!TextUtils.isEmpty(subjectResult.getText())) {
+                        reuslt = Integer.parseInt(subjectResult.getText().toString());
+                    }
+                    if (reuslt == modelList.get(currentIndex).getResultNum()) {
+                        //如果答案正确的话，才可以进行下一题
+                        if (currentIndex < num - 1) {
+                            mainContent.startAnimation(nextOutAnimation);
+                        } else {
+                            final MaterialDialog mDialog = new MaterialDialog(this);
+                            mDialog.setMessage(R.string.break_successful).setPositiveButton(R.string.commit, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    mDialog.dismiss();
+
+                                    //保存通过的关卡数
+                                    SharedPreferences pre = getSharedPreferences(Constant.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
+                                    int breakNum = pre.getInt("breakNum", 0);
+                                    if (currentBreakNum == breakNum + 1) {
+                                        //当前关卡是之前没闯过的，需要保存信息， 如果当前关卡是之前闯过的，不需要保存信息
+                                        int currentBreakNum = breakNum + 1;
+                                        SharedPreferences.Editor editor = pre.edit();
+                                        editor.putInt("breakNum", currentBreakNum);
+                                        editor.commit();
+
+                                        //保存该关卡的题库
+                                        DataSaveUtil saveUtil = new DataSaveUtil(PracticeActivity.this);
+                                        String tag = "break" + currentBreakNum;
+                                        saveUtil.setBreakSubjectList(tag, modelList);
+                                    }
+
+                                    //进行页面的跳转
+                                    Intent intent = new Intent(PracticeActivity.this, HomepageActivity.class);
+                                    intent.putExtra("mode", Constant.BREAK_MODE);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }).setNegativeButton(R.string.cancel, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    mDialog.dismiss();
+                                }
+                            });
+                            mDialog.setCanceledOnTouchOutside(true);
+                            mDialog.show();
                         }
-                    }).setNegativeButton(R.string.cancel, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            mDialog.dismiss();
-                        }
-                    });
-                    mDialog.setCanceledOnTouchOutside(true);
-                    mDialog.show();
-
+                    } else {
+                        //答案错误的话，弹提示
+                        Toast.makeText(this, R.string.answer_is_wrong, Toast.LENGTH_SHORT).show();
+                    }
                 }
+
 
                 break;
             case R.id.last_one:

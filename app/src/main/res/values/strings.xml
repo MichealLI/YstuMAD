@@ -52,4 +52,11 @@
     <string name="break_introduce_content">一共20个关卡，完成上一个关卡才能解锁下一个关卡，全部挑战完成后，想继续挑战可以重置关卡</string>
     <string name="reset_break">重置关卡</string>
 
+    <string name="no_break">该关卡未解锁</string>
+
+    <string name="answer_is_wrong">答案错误！！</string>
+
+    <string name="break_successful">闯关成功！是否退出本次关卡</string>
+
+
 </resources>

@@ -12,7 +12,7 @@ import com.guangwai.project.ystumad.base.BaseActivity;
 import com.guangwai.project.ystumad.homepage.HomepageActivity;
 import com.guangwai.project.ystumad.util.Constant;
 import com.guangwai.project.ystumad.util.LimitQueueUtil;
-import com.guangwai.project.ystumad.util.QueueDataSave;
+import com.guangwai.project.ystumad.util.DataSaveUtil;
 import com.guangwai.project.ystumad.util.OperationModel;
 
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public class ExerciseResultActivity extends BaseActivity implements View.OnClick
      * 把分数保存到本地上
      */
     private void saveScoreInLocal(int sumNum, int wrongNum) {
-        QueueDataSave dataSave = new QueueDataSave(this);
+        DataSaveUtil dataSave = new DataSaveUtil(this);
         Queue<Integer> queue = dataSave.getDataList(Constant.ANALYSE_NAME);
         LimitQueueUtil queueUtil = new LimitQueueUtil(7, queue);
         queueUtil.offer((int) ((sumNum - wrongNum) * 1.0 / sumNum * 100));

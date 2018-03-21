@@ -72,6 +72,7 @@ public class PracticeModeFragment extends Fragment implements View.OnClickListen
                     int num = Integer.parseInt(content); //题目数量
                     int max = subjectRange.getSelectedItemPosition() * 10 + 10;
                     Intent intent = new Intent(getContext(), PracticeActivity.class);
+                    intent.putExtra("mode", Constant.PRATICE_MODE);
                     intent.putExtra("practice_num", num);
                     intent.putExtra("practice_max", max);
                     if (modeChoose.getCheckedRadioButtonId() == R.id.single_mode) {

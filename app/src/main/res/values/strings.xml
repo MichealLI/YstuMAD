@@ -24,6 +24,7 @@
 
     <string name="pratice_doing">正在答题</string>
     <string name="pratice_time">用时 </string>
+    <string name="break_time">倒计时 </string>
 
     <string name="last_one">上一题</string>
     <string name="next_one">下一题</string>
@@ -57,6 +58,14 @@
     <string name="answer_is_wrong">答案错误！！</string>
 
     <string name="break_successful">闯关成功！是否退出本次关卡</string>
+    <string name="break_failed">闯关失败！期待你下次再来</string>
+
+    <string name="break_nm">第%d关卡</string>
+
+    <string name="pratice_sure_exit">你是否要退出本次练习</string>
+    <string name="break_sure_exit">你是否要退出本次闯关</string>
+
+    <string name="break_sure_reset">你是否要重置各个关卡</string>
 
 
 </resources>

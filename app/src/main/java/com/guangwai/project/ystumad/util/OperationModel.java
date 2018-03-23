@@ -17,6 +17,7 @@ public class OperationModel implements Parcelable {
     private int resultNum;
     private int mode; //哪种模式下的
     private boolean isRight; //是否做对了
+    private String date; //做题的日期
 
     public int getFirstNum() {
         return firstNum;
@@ -71,6 +72,14 @@ public class OperationModel implements Parcelable {
         return 0;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(firstNum);
@@ -79,7 +88,7 @@ public class OperationModel implements Parcelable {
         parcel.writeInt(resultNum);
         parcel.writeInt(mode);
         parcel.writeByte((byte) (isRight ? 1 : 0));
-
+        parcel.writeString(date);
     }
 
     public static final Parcelable.Creator<OperationModel> CREATOR = new Creator() {
@@ -94,6 +103,7 @@ public class OperationModel implements Parcelable {
             model.setResultNum(parcel.readInt());
             model.setMode(parcel.readInt());
             model.setRight(parcel.readByte() != 0);
+            model.setDate(parcel.readString());
             return model;
         }
 

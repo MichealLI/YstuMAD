@@ -8,6 +8,7 @@
     tools:context="com.guangwai.project.ystumad.exercise.PracticeActivity">
 
     <RelativeLayout
+        android:id="@+id/practice_mode_title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#3e6c91"
@@ -55,6 +56,59 @@
             android:textColor="#ffffff"
             android:textSize="16sp" />
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/break_mode_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#3e6c91"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/break_back"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:id="@+id/break_num"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/break_nm"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_toLeftOf="@+id/break_timer"
+            android:gravity="center"
+            android:text="@string/break_time"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/break_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="05:00"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"

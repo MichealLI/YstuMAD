@@ -42,15 +42,16 @@ public class MADDBManager {
                     values.put("operation", model.getOperation());
                     values.put("resultNum", model.getResultNum());
                     values.put("mode", model.getMode());
+                    values.put("date", model.getDate());
                     database.insert("subject", null, values);
-                    //一定要写（这是个大坑）
-                    database.setTransactionSuccessful();
                 }
             }
         } catch (Exception e) {
             Log.e("Ming", "add is failed!!");
             e.printStackTrace();
         } finally {
+            //一定要写（这是个大坑）
+            database.setTransactionSuccessful();
             database.endTransaction();
         }
     }
@@ -88,6 +89,7 @@ public class MADDBManager {
                 model.setOperation(cursor.getInt(cursor.getColumnIndex("operation")));
                 model.setResultNum(cursor.getInt(cursor.getColumnIndex("resultNum")));
                 model.setMode(cursor.getInt(cursor.getColumnIndex("mode")));
+                model.setDate(cursor.getString(cursor.getColumnIndex("date")));
                 result.add(model);
             }
         } catch (Exception e) {

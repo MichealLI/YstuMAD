@@ -93,7 +93,7 @@ public class ExerciseAnalysisAdapter extends BaseAdapter {
      * @param model
      * @return
      */
-    private String getContent(OperationModel model) {
+    public static String getContent(OperationModel model) {
         StringBuilder sb = new StringBuilder();
         sb.append(model.getFirstNum());
         sb.append(" ");

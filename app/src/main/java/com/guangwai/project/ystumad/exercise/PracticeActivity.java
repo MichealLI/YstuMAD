@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
@@ -18,6 +19,7 @@ import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +40,9 @@ import com.guangwai.project.ystumad.util.RandomNumberFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import me.drakeet.materialdialog.MaterialDialog;
@@ -48,7 +52,18 @@ import me.drakeet.materialdialog.MaterialDialog;
  */
 
 public class PracticeActivity extends BaseActivity implements View.OnClickListener {
+    //练习模式下的标题
+    private RelativeLayout praticeTitle;
     private ImageView back;
+    private Chronometer practiceTimer;
+
+    //闯关模式下的标题
+    private RelativeLayout breakTitle;
+    private ImageView breakBack;
+    private TextView breakNum; //第几个闯关
+    private TextView breakTimer;//倒计时
+
+
     private LinearLayout mainContent;
     private TextView subjectContent;
     private TextView subjectResult;
@@ -72,7 +87,6 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
     private TextView pause;
     private TextView page;
 
-    private Chronometer practiceTimer;
 
     private Animation nextInAnimation;  //下一题的进入动画
     private Animation nextOutAnimation; //下一题的离开动画
@@ -189,9 +203,6 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
         setCurrentPage(currentIndex, num);
         initAnimation();
 
-        //计时器开始
-        practiceTimer.setBase(SystemClock.elapsedRealtime());//计时器清零
-        practiceTimer.start();
     }
 
 
@@ -231,12 +242,43 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
      * 初始化View
      */
     private void initView() {
-        back = findViewById(R.id.practice_back);
+        praticeTitle = findViewById(R.id.practice_mode_title);
+        breakTitle = findViewById(R.id.break_mode_title);
+        //初始化标题栏
+        if (entranceMode == Constant.PRATICE_MODE) {
+            praticeTitle.setVisibility(View.VISIBLE);
+            breakTitle.setVisibility(View.GONE);
+
+            back = findViewById(R.id.practice_back);
+            practiceTimer = findViewById(R.id.practice_timer);
+            //计时器开始
+            practiceTimer.setBase(SystemClock.elapsedRealtime());//计时器清零
+            practiceTimer.start();
+
+            back.setOnClickListener(this);
+        } else if (entranceMode == Constant.BREAK_MODE) {
+            praticeTitle.setVisibility(View.GONE);
+            breakTitle.setVisibility(View.VISIBLE);
+
+            breakBack = findViewById(R.id.break_back);
+            breakNum = findViewById(R.id.break_num);
+            breakTimer = findViewById(R.id.break_timer);
+
+            String content = breakNum.getText().toString();
+            breakNum.setText(String.format(content, currentBreakNum));
+
+            breakBack.setOnClickListener(this);
+
+            MyCountDownTimer timer = new MyCountDownTimer(300000, 1000); //5分钟，每隔一秒执行一次
+            timer.start();
+        }
+
+
         mainContent = findViewById(R.id.main_content);
         subjectContent = findViewById(R.id.subject_content);
         subjectResult = findViewById(R.id.subject_result);
         microphone = findViewById(R.id.microphone);
-        practiceTimer = findViewById(R.id.practice_timer);
+
 
         //0 - 9
         numOne = findViewById(R.id.num_one);
@@ -260,7 +302,7 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
         nextOne.setOnClickListener(this);
         lastOne.setOnClickListener(this);
         clear.setOnClickListener(this);
-        back.setOnClickListener(this);
+
 
         numOne.setOnClickListener(this);
         numTwo.setOnClickListener(this);
@@ -426,6 +468,8 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
 
                                 //首先把错题写进数据库
                                 MADDBManager manager = new MADDBManager(PracticeActivity.this);
+                                //加日期进去list
+                                addDateToList(modelList);
                                 manager.addSujbect(modelList);
 
 
@@ -528,9 +572,44 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
 
                 break;
             case R.id.practice_back:
-                Intent intent = new Intent(this, HomepageActivity.class);
-                startActivity(intent);
-                finish();
+                final MaterialDialog mDialog = new MaterialDialog(this);
+                mDialog.setMessage(R.string.pratice_sure_exit).setPositiveButton(R.string.commit, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDialog.dismiss();
+                        Intent intent = new Intent(PracticeActivity.this, HomepageActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }).setNegativeButton(R.string.cancel, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDialog.dismiss();
+                    }
+                });
+                mDialog.setCanceledOnTouchOutside(true);
+                mDialog.show();
+
+                break;
+            case R.id.break_back:
+                final MaterialDialog breakDialog = new MaterialDialog(this);
+                breakDialog.setMessage(R.string.break_sure_exit).setPositiveButton(R.string.commit, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        breakDialog.dismiss();
+                        Intent intent = new Intent(PracticeActivity.this, HomepageActivity.class);
+                        intent.putExtra("mode", Constant.BREAK_MODE);
+                        startActivity(intent);
+                        finish();
+                    }
+                }).setNegativeButton(R.string.cancel, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        breakDialog.dismiss();
+                    }
+                });
+                breakDialog.setCanceledOnTouchOutside(true);
+                breakDialog.show();
                 break;
             case R.id.num_one:
                 addToReusltContent("1");
@@ -562,6 +641,21 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
             case R.id.num_zero:
                 addToReusltContent("0");
                 break;
+        }
+    }
+
+    /**
+     * 把日期加进去
+     *
+     * @param modelList
+     */
+    private void addDateToList(ArrayList<OperationModel> modelList) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日   HH:mm:ss");
+        Date curDate = new Date(System.currentTimeMillis());
+        //获取当前时间
+        String str = formatter.format(curDate);
+        for (OperationModel model : modelList) {
+            model.setDate(str);
         }
     }
 
@@ -634,4 +728,51 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
         page.setText(index + "/" + num);
     }
 
+
+    /**
+     * 自定义倒计时类
+     */
+    class MyCountDownTimer extends CountDownTimer {
+
+        /**
+         * @param millisInFuture    The number of millis in the future from the call
+         *                          to {@link #start()} until the countdown is done and {@link #onFinish()}
+         *                          is called.
+         * @param countDownInterval The interval along the way to receive
+         *                          {@link #onTick(long)} callbacks.
+         */
+        public MyCountDownTimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            int seconds = (int) (millisUntilFinished / 1000);
+            int minutes = seconds / 60;
+            seconds = seconds % 60;
+            if (seconds >= 10) {
+                breakTimer.setText("0" + minutes + ":" + seconds);
+            } else {
+                breakTimer.setText("0" + minutes + ":0" + seconds);
+            }
+
+        }
+
+        @Override
+        public void onFinish() {
+            final MaterialDialog mDialog = new MaterialDialog(PracticeActivity.this);
+            mDialog.setMessage(R.string.break_failed).setPositiveButton(R.string.commit, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //进行页面的跳转
+                    mDialog.dismiss();
+                    Intent intent = new Intent(PracticeActivity.this, HomepageActivity.class);
+                    intent.putExtra("mode", Constant.BREAK_MODE);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+            mDialog.show();
+        }
+    }
 }

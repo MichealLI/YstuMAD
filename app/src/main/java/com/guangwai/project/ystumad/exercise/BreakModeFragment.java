@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -21,6 +22,8 @@ import com.guangwai.project.ystumad.util.RandomNumberFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.drakeet.materialdialog.MaterialDialog;
+
 /**
  * 闯关模式
  * Created by Ming on 2018/3/14.
@@ -31,6 +34,8 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
     private ImageView break11, break12, break13, break14, break15, break16, break17, break18, break19, break20;
 
     private int breakNum; //目前的闯关数
+
+    private Button resetBreak; //重置关卡
 
     @Nullable
     @Override
@@ -79,6 +84,8 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
         break19 = view.findViewById(R.id.break_19);
         break20 = view.findViewById(R.id.break_20);
 
+        resetBreak = view.findViewById(R.id.reset_break);
+
         break01.setOnClickListener(this);
         break02.setOnClickListener(this);
         break03.setOnClickListener(this);
@@ -100,6 +107,15 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
         break19.setOnClickListener(this);
         break20.setOnClickListener(this);
 
+        resetBreak.setOnClickListener(this);
+
+        setBreakImage(); // 设置关卡的图片
+    }
+
+    /**
+     * 设置各个关卡的图片
+     */
+    private void setBreakImage() {
         if (breakNum >= 1) {
             break02.setImageDrawable(getResources().getDrawable(R.drawable.break2));
         }
@@ -157,6 +173,34 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
         if (breakNum >= 19) {
             break20.setImageDrawable(getResources().getDrawable(R.drawable.break20));
         }
+    }
+
+    /**
+     * 重置各个关卡的图片
+     *
+     * @return
+     */
+    public void resetBreakImage() {
+        break02.setImageDrawable(getResources().getDrawable(R.drawable.lock));
+        break03.setImageDrawable(getResources().getDrawable(R.drawable.lock));
+        break04.setImageDrawable(getResources().getDrawable(R.drawable.lock));
+        break05.setImageDrawable(getResources().getDrawable(R.drawable.lock));
+        break06.setImageDrawable(getResources().getDrawable(R.drawable.lock));
+        break07.setImageDrawable(getResources().getDrawable(R.drawable.lock));
+        break08.setImageDrawable(getResources().getDrawable(R.drawable.lock));
+        break09.setImageDrawable(getResources().getDrawable(R.drawable.lock));
+        break10.setImageDrawable(getResources().getDrawable(R.drawable.lock));
+        break11.setImageDrawable(getResources().getDrawable(R.drawable.lock));
+        break12.setImageDrawable(getResources().getDrawable(R.drawable.lock));
+        break13.setImageDrawable(getResources().getDrawable(R.drawable.lock));
+        break14.setImageDrawable(getResources().getDrawable(R.drawable.lock));
+        break15.setImageDrawable(getResources().getDrawable(R.drawable.lock));
+        break16.setImageDrawable(getResources().getDrawable(R.drawable.lock));
+        break17.setImageDrawable(getResources().getDrawable(R.drawable.lock));
+        break18.setImageDrawable(getResources().getDrawable(R.drawable.lock));
+        break19.setImageDrawable(getResources().getDrawable(R.drawable.lock));
+        break20.setImageDrawable(getResources().getDrawable(R.drawable.lock));
+
     }
 
     public static BreakModeFragment newInstance() {
@@ -341,6 +385,35 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
                 } else {
                     Toast.makeText(getContext(), R.string.no_break, Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case R.id.reset_break:
+                final MaterialDialog dialog = new MaterialDialog(getContext());
+                dialog.setMessage(R.string.break_sure_reset).setPositiveButton(R.string.commit, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                        SharedPreferences pre = getContext().getSharedPreferences(Constant.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
+                        int num = pre.getInt("breakNum", 0);
+                        SharedPreferences.Editor editor = pre.edit();
+                        //把相关数据都删除
+                        editor.remove("breakNum");
+                        for (int i = 1; i <= num; i++) {
+                            String tag = "break" + i;
+                            editor.remove(tag);
+                        }
+                        editor.commit();
+                        //重置关卡图片
+                        breakNum = 0; //置0
+                        resetBreakImage();
+                    }
+                }).setNegativeButton(R.string.cancel, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.show();
                 break;
         }
     }

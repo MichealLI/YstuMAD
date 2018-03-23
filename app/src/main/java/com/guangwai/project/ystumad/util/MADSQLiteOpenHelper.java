@@ -13,7 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MADSQLiteOpenHelper extends SQLiteOpenHelper {
     public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS subject" +
             "(_id INTEGER PRIMARY KEY AUTOINCREMENT, firstNum INTEGER" +
-            ",secondNum INTEGER,operation INTEGER,resultNum INTEGER,mode INTEGER)";
+            ",secondNum INTEGER,operation INTEGER,resultNum INTEGER,mode INTEGER,date VARCHAR)";
 
     public MADSQLiteOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

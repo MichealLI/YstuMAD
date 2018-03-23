@@ -21,6 +21,7 @@ public class Constant {
 
     public static final int PRATICE_MODE = 0;
     public static final int BREAK_MODE = 1;
+    public static final int ERROR_MODE = 2;
 
     public static final int SINGLE_MODE = 0;
     public static final int MIXED_MODE = 1;

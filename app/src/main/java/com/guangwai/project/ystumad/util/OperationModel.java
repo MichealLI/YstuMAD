@@ -18,6 +18,7 @@ public class OperationModel implements Parcelable {
     private int mode; //哪种模式下的
     private boolean isRight; //是否做对了
     private String date; //做题的日期
+    private int id; //数据库中保存的id
 
     public int getFirstNum() {
         return firstNum;
@@ -80,6 +81,14 @@ public class OperationModel implements Parcelable {
         this.date = date;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(firstNum);
@@ -89,6 +98,7 @@ public class OperationModel implements Parcelable {
         parcel.writeInt(mode);
         parcel.writeByte((byte) (isRight ? 1 : 0));
         parcel.writeString(date);
+        parcel.writeInt(id);
     }
 
     public static final Parcelable.Creator<OperationModel> CREATOR = new Creator() {
@@ -104,6 +114,7 @@ public class OperationModel implements Parcelable {
             model.setMode(parcel.readInt());
             model.setRight(parcel.readByte() != 0);
             model.setDate(parcel.readString());
+            model.setId(parcel.readInt());
             return model;
         }
 

@@ -119,7 +119,7 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                     currentIndex++;
                     setSubjectContent(currentIndex);
                     setCurrentPage(currentIndex, num);
-                    if (entranceMode == Constant.PRATICE_MODE) {
+                    if (entranceMode == Constant.PRATICE_MODE || entranceMode == Constant.ERROR_MODE) {
                         if (resultList.get(currentIndex) != -1) {
                             subjectResult.setText(resultList.get(currentIndex) + "");
                         } else {
@@ -190,11 +190,17 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
             int max = intent.getIntExtra("practice_max", 10);
             int practiceMode = intent.getIntExtra("practice_mode", Constant.SINGLE_MODE);
             initData(num, practiceMode, max); //根据题量、题型和范围，随机生成题目
+            resetResultList();
         } else if (entranceMode == Constant.BREAK_MODE) {
             //闯关模式
             modelList = intent.getParcelableArrayListExtra("break_subject");
             currentBreakNum = intent.getIntExtra("currentBreakNum", 1);
             num = modelList.size();
+        } else if (entranceMode == Constant.ERROR_MODE) {
+            //错题集进来的
+            modelList = intent.getParcelableArrayListExtra("error_subject");
+            num = modelList.size();
+            resetResultList();
         }
 
         initView();
@@ -215,11 +221,6 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
      */
     private void initData(int num, int mode, int max) {
         modelList = new ArrayList<>();
-        resultList = new ArrayList<>();
-        for (int i = 0; i < num; i++) {
-            //对其进行初始化，默认值-1
-            resultList.add(-1);
-        }
         int count = 0;
         int opera1 = Constant.OPERATION_ADD;
         int opera2 = Constant.OPERATION_REDUCE;
@@ -239,13 +240,25 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
     }
 
     /**
+     * 初始化结果list
+     */
+    private void resetResultList() {
+        resultList = new ArrayList<>();
+        for (int i = 0; i < num; i++) {
+            //对其进行初始化，默认值-1
+            resultList.add(-1);
+        }
+    }
+
+
+    /**
      * 初始化View
      */
     private void initView() {
         praticeTitle = findViewById(R.id.practice_mode_title);
         breakTitle = findViewById(R.id.break_mode_title);
         //初始化标题栏
-        if (entranceMode == Constant.PRATICE_MODE) {
+        if (entranceMode == Constant.PRATICE_MODE || entranceMode == Constant.ERROR_MODE) {
             praticeTitle.setVisibility(View.VISIBLE);
             breakTitle.setVisibility(View.GONE);
 
@@ -393,6 +406,23 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
     private void initAnimation() {
         //初始化动画
         nextInAnimation = AnimationUtils.loadAnimation(this, R.anim.subject_next_in_anim);
+        nextInAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                nextOne.setClickable(true);
+                lastOne.setClickable(true);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
         nextOutAnimation = AnimationUtils.loadAnimation(this, R.anim.subject_next_out_anim);
         nextOutAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -411,6 +441,23 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
             }
         });
         lastInAnimation = AnimationUtils.loadAnimation(this, R.anim.subject_last_in_anim);
+        lastInAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                lastOne.setClickable(true);
+                nextOne.setClickable(true);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
         lastOutAnimation = AnimationUtils.loadAnimation(this, R.anim.subject_last_out_anim);
         lastOutAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -434,7 +481,8 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.next_one:
-                if (entranceMode == Constant.PRATICE_MODE) {
+                nextOne.setClickable(false);
+                if (entranceMode == Constant.PRATICE_MODE || entranceMode == Constant.ERROR_MODE) {
                     //练习模式下的操作
                     //首先保存输入的结果
                     if (!TextUtils.isEmpty(subjectResult.getText())) {
@@ -444,6 +492,8 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                     if (currentIndex < num - 1) {
                         mainContent.startAnimation(nextOutAnimation);
                     } else {
+                        nextOne.setClickable(true);
+                        lastOne.setClickable(true);
                         //跳转到结果页面
                         //首先弹出是否提交答案的dialog
                         final MaterialDialog mDialog = new MaterialDialog(this);
@@ -466,12 +516,23 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
 
                                 editor.commit();
 
-                                //首先把错题写进数据库
-                                MADDBManager manager = new MADDBManager(PracticeActivity.this);
-                                //加日期进去list
-                                addDateToList(modelList);
-                                manager.addSujbect(modelList);
-
+                                if (entranceMode == Constant.PRATICE_MODE) {
+                                    //练习模式需要把错题写进数据库
+                                    //首先把错题写进数据库
+                                    MADDBManager manager = new MADDBManager(PracticeActivity.this);
+                                    //加日期进去list
+                                    addDateToList(modelList);
+                                    manager.addSujbect(modelList);
+                                } else if (entranceMode == Constant.ERROR_MODE) {
+                                    //错题集进来的，需要把答对的题从数据库中删除掉
+                                    for (OperationModel model : modelList) {
+                                        if (model.isRight()) {
+                                            //答对了
+                                            MADDBManager manager = new MADDBManager(PracticeActivity.this);
+                                            manager.deleteDataFromIndex(model.getId());
+                                        }
+                                    }
+                                }
 
                                 //再进行页面跳转
                                 Intent intent = new Intent(PracticeActivity.this, ExerciseResultActivity.class);
@@ -550,6 +611,7 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
 
                 break;
             case R.id.last_one:
+                lastOne.setClickable(false);
                 if (currentIndex > 0) {
                     if (!TextUtils.isEmpty(subjectResult.getText())) {
                         int reuslt = Integer.parseInt(subjectResult.getText().toString());

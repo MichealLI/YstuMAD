@@ -44,6 +44,10 @@
     <string name="used_time"> 总用时</string>
     <string name="total_score"> 总分 : %d 分</string>
 
+    <string name="analyse_subject_num"> 共刷题</string>
+    <string name="analyse_subject_right_num"> 做对题</string>
+    <string name="analyse_subject_right_rate"> 正确率</string>
+
     <string name="error_analysis">错题解析</string>
     <string name="all_analysis">全部解析</string>
     <string name="continue_do">继续练习</string>
@@ -67,5 +71,13 @@
 
     <string name="break_sure_reset">你是否要重置各个关卡</string>
 
+    <string name="analyse_no_data">亲，现在暂无数据噢</string>
 
+    <string name="analyse_practice_data">习题分析</string>
+
+    <string name="analyse_seven_data">近七次的练习分析</string>
+
+    <string name="error_subject">错题集</string>
+
+    <string name="error_no_subject">你很棒！目前还没有错题噢</string>
 </resources>

@@ -69,14 +69,22 @@ public class MADDBManager {
             database.endTransaction();
         }
 
+    }
 
+    /**
+     * 通过index来删除对应的数据
+     *
+     * @param index
+     */
+    public void deleteDataFromIndex(int index) {
+        database.delete("subject", "_id = ?", new String[]{index + " "});
     }
 
     /**
      * 遍历表格，查询错题
      */
-    public List<OperationModel> queryTable() {
-        List<OperationModel> result = new ArrayList<>();
+    public ArrayList<OperationModel> queryTable() {
+        ArrayList<OperationModel> result = new ArrayList<>();
         String sql = "select * from subject";
         Cursor cursor = null;
         try {
@@ -90,6 +98,7 @@ public class MADDBManager {
                 model.setResultNum(cursor.getInt(cursor.getColumnIndex("resultNum")));
                 model.setMode(cursor.getInt(cursor.getColumnIndex("mode")));
                 model.setDate(cursor.getString(cursor.getColumnIndex("date")));
+                model.setId(cursor.getInt(cursor.getColumnIndex("_id")));
                 result.add(model);
             }
         } catch (Exception e) {

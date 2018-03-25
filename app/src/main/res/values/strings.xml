@@ -29,7 +29,7 @@
     <string name="last_one">上一题</string>
     <string name="next_one">下一题</string>
     <string name="clear">清除</string>
-    <string name="pause_test">暂停</string>
+    <string name="pause_test">提交</string>
 
     <string name="max_num_number">输入的数不能超过3位</string>
 
@@ -67,6 +67,7 @@
     <string name="break_nm">第%d关卡</string>
 
     <string name="pratice_sure_exit">你是否要退出本次练习</string>
+    <string name="pratice_sure_commit">你确定要提交本次练习的答案么</string>
     <string name="break_sure_exit">你是否要退出本次闯关</string>
 
     <string name="break_sure_reset">你是否要重置各个关卡</string>

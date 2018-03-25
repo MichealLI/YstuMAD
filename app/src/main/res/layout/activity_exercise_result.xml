@@ -129,7 +129,8 @@
         android:padding="6dp"
         android:text="@string/total_score"
         android:textColor="#FF3030"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
@@ -155,8 +156,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/button_common_select"
                 android:padding="10dp"
-                android:text="@string/error_analysis" />
+                android:text="@string/error_analysis"
+                android:textColor="#ffffff" />
 
             <Button
                 android:id="@+id/all_analysis"
@@ -164,8 +167,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/button_common_select"
                 android:padding="10dp"
-                android:text="@string/all_analysis" />
+                android:text="@string/all_analysis"
+                android:textColor="#ffffff" />
         </LinearLayout>
 
         <Button
@@ -173,7 +178,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:background="@drawable/button_common_select"
             android:padding="10dp"
-            android:text="@string/continue_do" />
+            android:text="@string/continue_do"
+            android:textColor="#ffffff" />
     </LinearLayout>
 </LinearLayout>

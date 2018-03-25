@@ -1,6 +1,7 @@
 package com.guangwai.project.ystumad.exercise;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -40,6 +41,7 @@ import com.guangwai.project.ystumad.util.RandomNumberFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -84,7 +86,7 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
     private TextView nextOne;
     private TextView clear;
 
-    private TextView pause;
+    private TextView commit;
     private TextView page;
 
 
@@ -109,58 +111,10 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
 
     private int currentBreakNum; //闯关模式下，第几关进来的
 
-    @SuppressLint("HandlerLeak")
-    private Handler uiHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case Constant.NEXT_ONE:
-                    currentIndex++;
-                    setSubjectContent(currentIndex);
-                    setCurrentPage(currentIndex, num);
-                    if (entranceMode == Constant.PRATICE_MODE || entranceMode == Constant.ERROR_MODE) {
-                        if (resultList.get(currentIndex) != -1) {
-                            subjectResult.setText(resultList.get(currentIndex) + "");
-                        } else {
-                            //清空
-                            subjectResult.setText("");
-                        }
-                    } else if (entranceMode == Constant.BREAK_MODE) {
-                        //清空
-                        subjectResult.setText("");
-                    }
-                    mainContent.startAnimation(nextInAnimation);
-                    break;
-                case Constant.LAST_ONE:
-                    currentIndex--;
-                    setSubjectContent(currentIndex);
-                    setCurrentPage(currentIndex, num);
-                    if (resultList.get(currentIndex) != -1) {
-                        subjectResult.setText(resultList.get(currentIndex) + "");
-                    } else {
-                        //清空
-                        subjectResult.setText("");
-                    }
-                    mainContent.startAnimation(lastInAnimation);
-                    break;
-                case Constant.ASR_END:
-                    //把语音内容筛选数字
-                    String numContent = null;
-                    if (arsContent != null) {
-                        numContent = getTheNumberFromAsr(arsContent);
-                    }
-                    if (numContent != null) {
-                        if (numContent.length() > 3) {
-                            subjectResult.setText(numContent.substring(numContent.length() - 3, numContent.length()));
-                        } else {
-                            subjectResult.setText(numContent);
-                        }
-                    }
-                    break;
-            }
-        }
-    };
+    /**
+     * 用来更新ui的handler
+     */
+    private MyUiHandler uiHandler = new MyUiHandler(this);
 
     /**
      * 从语音中筛选数字出来
@@ -309,12 +263,13 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
         nextOne = findViewById(R.id.next_one);
         clear = findViewById(R.id.clear);
 
-        pause = findViewById(R.id.pause);
+        commit = findViewById(R.id.pause);
         page = findViewById(R.id.page);
 
         nextOne.setOnClickListener(this);
         lastOne.setOnClickListener(this);
         clear.setOnClickListener(this);
+        commit.setOnClickListener(this);
 
 
         numOne.setOnClickListener(this);
@@ -349,7 +304,7 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
         });
 
         if (entranceMode == Constant.BREAK_MODE) {
-            pause.setVisibility(View.INVISIBLE);
+            commit.setVisibility(View.INVISIBLE);
             lastOne.setVisibility(View.INVISIBLE);
         }
 
@@ -501,46 +456,7 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                             @Override
                             public void onClick(View view) {
                                 mDialog.dismiss();
-                                //确认提交答案
-                                SharedPreferences preferences = getSharedPreferences(Constant.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = preferences.edit();
-
-                                int subjectSum = preferences.getInt("subject_sum", 0);
-                                subjectSum = subjectSum + num;      //记录做的总题数
-                                editor.putInt("subject_sum", subjectSum);
-
-                                int wrongNum = checkTheAnswer();
-                                int wrongSum = preferences.getInt("subject_wrong_sum", 0);
-                                wrongSum = wrongSum + wrongNum; //加上这次错的题数
-                                editor.putInt("subject_wrong_sum", wrongSum);
-
-                                editor.commit();
-
-                                if (entranceMode == Constant.PRATICE_MODE) {
-                                    //练习模式需要把错题写进数据库
-                                    //首先把错题写进数据库
-                                    MADDBManager manager = new MADDBManager(PracticeActivity.this);
-                                    //加日期进去list
-                                    addDateToList(modelList);
-                                    manager.addSujbect(modelList);
-                                } else if (entranceMode == Constant.ERROR_MODE) {
-                                    //错题集进来的，需要把答对的题从数据库中删除掉
-                                    for (OperationModel model : modelList) {
-                                        if (model.isRight()) {
-                                            //答对了
-                                            MADDBManager manager = new MADDBManager(PracticeActivity.this);
-                                            manager.deleteDataFromIndex(model.getId());
-                                        }
-                                    }
-                                }
-
-                                //再进行页面跳转
-                                Intent intent = new Intent(PracticeActivity.this, ExerciseResultActivity.class);
-                                intent.putExtra("wrongNum", wrongNum);
-                                intent.putParcelableArrayListExtra("subject", modelList);
-                                intent.putExtra("usedTime", practiceTimer.getText().toString());
-                                startActivity(intent);
-                                finish(); //销毁当前页面
+                                commitAnswerAndJump();
 
                             }
                         }).setNegativeButton(R.string.cancel, new View.OnClickListener() {
@@ -611,8 +527,8 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
 
                 break;
             case R.id.last_one:
-                lastOne.setClickable(false);
                 if (currentIndex > 0) {
+                    lastOne.setClickable(false);
                     if (!TextUtils.isEmpty(subjectResult.getText())) {
                         int reuslt = Integer.parseInt(subjectResult.getText().toString());
                         resultList.set(currentIndex, reuslt);
@@ -631,6 +547,27 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                 }
                 break;
             case R.id.pause:
+                //提交答案
+                final MaterialDialog commitDialog = new MaterialDialog(this);
+                commitDialog.setMessage(R.string.pratice_sure_commit).setPositiveButton(R.string.commit, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        commitDialog.dismiss();
+                        //首先保存输入的结果
+                        if (!TextUtils.isEmpty(subjectResult.getText())) {
+                            int reuslt = Integer.parseInt(subjectResult.getText().toString());
+                            resultList.set(currentIndex, reuslt);
+                        }
+                        commitAnswerAndJump();
+                    }
+                }).setNegativeButton(R.string.cancel, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        commitDialog.dismiss();
+                    }
+                });
+                commitDialog.setCanceledOnTouchOutside(true);
+                commitDialog.show();
 
                 break;
             case R.id.practice_back:
@@ -704,6 +641,52 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                 addToReusltContent("0");
                 break;
         }
+    }
+
+    /**
+     * 保存相关信息，和页面的跳转
+     */
+    private void commitAnswerAndJump() {
+        //确认提交答案
+        SharedPreferences preferences = getSharedPreferences(Constant.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        int subjectSum = preferences.getInt("subject_sum", 0);
+        subjectSum = subjectSum + num;      //记录做的总题数
+        editor.putInt("subject_sum", subjectSum);
+
+        int wrongNum = checkTheAnswer();
+        int wrongSum = preferences.getInt("subject_wrong_sum", 0);
+        wrongSum = wrongSum + wrongNum; //加上这次错的题数
+        editor.putInt("subject_wrong_sum", wrongSum);
+
+        editor.commit();
+
+        if (entranceMode == Constant.PRATICE_MODE) {
+            //练习模式需要把错题写进数据库
+            //首先把错题写进数据库
+            MADDBManager manager = new MADDBManager(PracticeActivity.this);
+            //加日期进去list
+            addDateToList(modelList);
+            manager.addSujbect(modelList);
+        } else if (entranceMode == Constant.ERROR_MODE) {
+            //错题集进来的，需要把答对的题从数据库中删除掉
+            for (OperationModel model : modelList) {
+                if (model.isRight()) {
+                    //答对了
+                    MADDBManager manager = new MADDBManager(PracticeActivity.this);
+                    manager.deleteDataFromIndex(model.getId());
+                }
+            }
+        }
+
+        //再进行页面跳转
+        Intent intent = new Intent(PracticeActivity.this, ExerciseResultActivity.class);
+        intent.putExtra("wrongNum", wrongNum);
+        intent.putParcelableArrayListExtra("subject", modelList);
+        intent.putExtra("usedTime", practiceTimer.getText().toString());
+        startActivity(intent);
+        finish(); //销毁当前页面
     }
 
     /**
@@ -835,6 +818,68 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                 }
             });
             mDialog.show();
+        }
+    }
+
+    /**
+     * 自定义uiHandler，为stati，防止内存泄漏
+     */
+    private static class MyUiHandler extends Handler {
+        WeakReference<PracticeActivity> weakReference;
+
+        public MyUiHandler(PracticeActivity activity) {
+            weakReference = new WeakReference<PracticeActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            PracticeActivity activity = weakReference.get();
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case Constant.NEXT_ONE:
+                    currentIndex++;
+                    activity.setSubjectContent(currentIndex);
+                    activity.setCurrentPage(currentIndex, activity.num);
+                    if (activity.entranceMode == Constant.PRATICE_MODE || activity.entranceMode == Constant.ERROR_MODE) {
+                        if (activity.resultList.get(currentIndex) != -1) {
+                            activity.subjectResult.setText(activity.resultList.get(currentIndex) + "");
+                        } else {
+                            //清空
+                            activity.subjectResult.setText("");
+                        }
+                    } else if (activity.entranceMode == Constant.BREAK_MODE) {
+                        //清空
+                        activity.subjectResult.setText("");
+                    }
+                    activity.mainContent.startAnimation(activity.nextInAnimation);
+                    break;
+                case Constant.LAST_ONE:
+                    currentIndex--;
+                    activity.setSubjectContent(currentIndex);
+                    activity.setCurrentPage(currentIndex, activity.num);
+                    if (activity.resultList.get(currentIndex) != -1) {
+                        activity.subjectResult.setText(activity.resultList.get(currentIndex) + "");
+                    } else {
+                        //清空
+                        activity.subjectResult.setText("");
+                    }
+                    activity.mainContent.startAnimation(activity.lastInAnimation);
+                    break;
+                case Constant.ASR_END:
+                    //把语音内容筛选数字
+                    String numContent = null;
+                    if (activity.arsContent != null) {
+                        numContent = activity.getTheNumberFromAsr(activity.arsContent);
+                    }
+                    if (numContent != null) {
+                        if (numContent.length() > 3) {
+                            activity.subjectResult.setText(numContent.substring(numContent.length() - 3, numContent.length()));
+                        } else {
+                            activity.subjectResult.setText(numContent);
+                        }
+                    }
+                    break;
+            }
         }
     }
 }

@@ -125,7 +125,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:background="@drawable/begin_shape_corners"
+        android:background="@drawable/button_common_select"
         android:textColor="#ffffff"
         android:text="@string/app_begin" />
 </LinearLayout>

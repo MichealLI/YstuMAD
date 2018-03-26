@@ -83,6 +83,7 @@ public class PracticeModeFragment extends Fragment implements View.OnClickListen
                         intent.putExtra("practice_mode", Constant.MIXED_MODE);
                     }
                     startActivity(intent);
+                    getActivity().finish();
                 } else {
                     //输入框为空，不能跳转去做题
                     Toast.makeText(getContext(), R.string.subject_is_empty, Toast.LENGTH_SHORT).show();

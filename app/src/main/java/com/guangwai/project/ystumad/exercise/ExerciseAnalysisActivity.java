@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,7 +23,7 @@ public class ExerciseAnalysisActivity extends BaseActivity implements View.OnCli
     private int mode; //什么模式
 
     private ListView subjectListView;
-    private ImageView back;
+    private LinearLayout back;
     private TextView title;
 
     @Override

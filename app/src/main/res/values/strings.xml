@@ -69,6 +69,7 @@
     <string name="pratice_sure_exit">你是否要退出本次练习</string>
     <string name="pratice_sure_commit">你确定要提交本次练习的答案么</string>
     <string name="break_sure_exit">你是否要退出本次闯关</string>
+    <string name="app_sure_exit">你是否要退出口算器么</string>
 
     <string name="break_sure_reset">你是否要重置各个关卡</string>
 

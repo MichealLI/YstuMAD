@@ -56,12 +56,12 @@ import me.drakeet.materialdialog.MaterialDialog;
 public class PracticeActivity extends BaseActivity implements View.OnClickListener {
     //练习模式下的标题
     private RelativeLayout praticeTitle;
-    private ImageView back;
+    private LinearLayout back;
     private Chronometer practiceTimer;
 
     //闯关模式下的标题
     private RelativeLayout breakTitle;
-    private ImageView breakBack;
+    private LinearLayout breakBack;
     private TextView breakNum; //第几个闯关
     private TextView breakTimer;//倒计时
 
@@ -436,8 +436,8 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.next_one:
-                nextOne.setClickable(false);
                 if (entranceMode == Constant.PRATICE_MODE || entranceMode == Constant.ERROR_MODE) {
+                    nextOne.setClickable(false);
                     //练习模式下的操作
                     //首先保存输入的结果
                     if (!TextUtils.isEmpty(subjectResult.getText())) {
@@ -571,44 +571,12 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
 
                 break;
             case R.id.practice_back:
-                final MaterialDialog mDialog = new MaterialDialog(this);
-                mDialog.setMessage(R.string.pratice_sure_exit).setPositiveButton(R.string.commit, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mDialog.dismiss();
-                        Intent intent = new Intent(PracticeActivity.this, HomepageActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                }).setNegativeButton(R.string.cancel, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mDialog.dismiss();
-                    }
-                });
-                mDialog.setCanceledOnTouchOutside(true);
-                mDialog.show();
+                showDialogFromMode(entranceMode);
 
                 break;
             case R.id.break_back:
-                final MaterialDialog breakDialog = new MaterialDialog(this);
-                breakDialog.setMessage(R.string.break_sure_exit).setPositiveButton(R.string.commit, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        breakDialog.dismiss();
-                        Intent intent = new Intent(PracticeActivity.this, HomepageActivity.class);
-                        intent.putExtra("mode", Constant.BREAK_MODE);
-                        startActivity(intent);
-                        finish();
-                    }
-                }).setNegativeButton(R.string.cancel, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        breakDialog.dismiss();
-                    }
-                });
-                breakDialog.setCanceledOnTouchOutside(true);
-                breakDialog.show();
+                showDialogFromMode(entranceMode);
+
                 break;
             case R.id.num_one:
                 addToReusltContent("1");
@@ -640,6 +608,52 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
             case R.id.num_zero:
                 addToReusltContent("0");
                 break;
+        }
+    }
+
+    /**
+     * 根据不同的入口标志来显示不同内容的dialog
+     *
+     * @param entranceMode
+     */
+    private void showDialogFromMode(int entranceMode) {
+        if (entranceMode == Constant.BREAK_MODE) {
+            final MaterialDialog breakDialog = new MaterialDialog(this);
+            breakDialog.setMessage(R.string.break_sure_exit).setPositiveButton(R.string.commit, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    breakDialog.dismiss();
+                    Intent intent = new Intent(PracticeActivity.this, HomepageActivity.class);
+                    intent.putExtra("mode", Constant.BREAK_MODE);
+                    startActivity(intent);
+                    finish();
+                }
+            }).setNegativeButton(R.string.cancel, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    breakDialog.dismiss();
+                }
+            });
+            breakDialog.setCanceledOnTouchOutside(true);
+            breakDialog.show();
+        } else if (entranceMode == Constant.PRATICE_MODE || entranceMode == Constant.ERROR_MODE) {
+            final MaterialDialog mDialog = new MaterialDialog(this);
+            mDialog.setMessage(R.string.pratice_sure_exit).setPositiveButton(R.string.commit, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mDialog.dismiss();
+                    Intent intent = new Intent(PracticeActivity.this, HomepageActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }).setNegativeButton(R.string.cancel, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mDialog.dismiss();
+                }
+            });
+            mDialog.setCanceledOnTouchOutside(true);
+            mDialog.show();
         }
     }
 
@@ -881,5 +895,13 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                     break;
             }
         }
+    }
+
+    /**
+     * 返回键按下去的时候
+     */
+    @Override
+    public void onBackPressed() {
+        showDialogFromMode(entranceMode);
     }
 }

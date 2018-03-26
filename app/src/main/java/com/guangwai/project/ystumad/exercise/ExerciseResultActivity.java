@@ -7,6 +7,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -34,7 +35,7 @@ public class ExerciseResultActivity extends BaseActivity implements View.OnClick
     //  private TextView subjectRightNum;
     private TextView usedTime;
     private TextView totalScore;
-    private ImageView back;
+    private LinearLayout back;
     private Button errorAnalysis;
     private Button allAnalysis;
     private Button continueDo;

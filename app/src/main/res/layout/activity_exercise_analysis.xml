@@ -14,15 +14,21 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <ImageView
+        <LinearLayout
             android:id="@+id/practice_back"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/back" />
+            android:background="@drawable/back_common_select"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/back" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/title"

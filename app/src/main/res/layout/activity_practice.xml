@@ -15,15 +15,21 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <ImageView
+        <LinearLayout
             android:id="@+id/practice_back"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/back" />
+            android:background="@drawable/back_common_select"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/back" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -66,15 +72,21 @@
         android:orientation="horizontal"
         android:visibility="gone">
 
-        <ImageView
+        <LinearLayout
             android:id="@+id/break_back"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/back" />
+            android:background="@drawable/back_common_select"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/back" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/break_num"
@@ -155,114 +167,158 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/microphone" />
 
-            <GridLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="4"
-                android:columnCount="3"
-                android:rowCount="4">
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/num_one"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/caculate_button_select_style"
                     android:gravity="center"
                     android:text="1"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/num_two"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/caculate_button_select_style"
                     android:gravity="center"
                     android:text="2"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/num_three"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/caculate_button_select_style"
                     android:gravity="center"
                     android:text="3"
                     android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/num_four"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/caculate_button_select_style"
                     android:gravity="center"
                     android:text="4"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/num_five"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/caculate_button_select_style"
                     android:gravity="center"
                     android:text="5"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/num_six"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/caculate_button_select_style"
                     android:gravity="center"
                     android:text="6"
                     android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/num_seven"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/caculate_button_select_style"
                     android:gravity="center"
                     android:text="7"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/num_eight"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/caculate_button_select_style"
                     android:gravity="center"
                     android:text="8"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/num_nine"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/caculate_button_select_style"
                     android:gravity="center"
                     android:text="9"
                     android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/pause"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/caculate_button_select_style"
                     android:gravity="center"
                     android:text="@string/pause_test"
                     android:textColor="#3e6c91"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/num_zero"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/caculate_button_select_style"
                     android:gravity="center"
                     android:text="0"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/clear"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/caculate_button_select_style"
                     android:gravity="center"
                     android:text="@string/clear"
                     android:textColor="#3e6c91"
-                    android:textSize="20sp" />
-
-            </GridLayout>
+                    android:textSize="16sp" />
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -280,6 +336,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/caculate_button_select_style"
                     android:gravity="center"
                     android:text="@string/last_one"
                     android:textColor="#3e6c91"
@@ -299,6 +356,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/caculate_button_select_style"
                     android:gravity="center"
                     android:text="@string/next_one"
                     android:textColor="#3e6c91"

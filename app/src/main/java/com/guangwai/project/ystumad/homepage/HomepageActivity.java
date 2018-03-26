@@ -1,6 +1,9 @@
 package com.guangwai.project.ystumad.homepage;
 
 
+import android.app.ActivityManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -13,7 +16,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.guangwai.project.ystumad.R;
+import com.guangwai.project.ystumad.exercise.PracticeActivity;
+import com.guangwai.project.ystumad.util.ActivityCollector;
 import com.guangwai.project.ystumad.util.Constant;
+
+import me.drakeet.materialdialog.MaterialDialog;
 
 /**
  * app主页
@@ -41,6 +48,7 @@ public class HomepageActivity extends FragmentActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_homepage);
+        ActivityCollector.getInstance().addActivity(this);
         initTabView();
         setCurrentTab(Constant.TAB1_INDEX);
 
@@ -174,5 +182,30 @@ public class HomepageActivity extends FragmentActivity implements View.OnClickLi
         tab2Text.setTextColor(0xffAAAAAA);
         tab3Text.setTextColor(0xffAAAAAA);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        final MaterialDialog breakDialog = new MaterialDialog(this);
+        breakDialog.setMessage(R.string.app_sure_exit).setPositiveButton(R.string.commit, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                breakDialog.dismiss();
+                ActivityCollector.getInstance().finishAll();
+            }
+        }).setNegativeButton(R.string.cancel, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                breakDialog.dismiss();
+            }
+        });
+        breakDialog.setCanceledOnTouchOutside(true);
+        breakDialog.show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityCollector.getInstance().removeActivity(this);
     }
 }

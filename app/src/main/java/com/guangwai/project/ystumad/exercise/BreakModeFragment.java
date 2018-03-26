@@ -441,5 +441,6 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
         intent.putExtra("currentBreakNum", currentNum);
         intent.putParcelableArrayListExtra("break_subject", modelList);
         startActivity(intent);
+        getActivity().finish();
     }
 }

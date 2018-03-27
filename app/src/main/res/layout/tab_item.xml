@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/tab_image"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
         android:src="@drawable/exercise_selected" />
 
     <TextView
@@ -17,5 +17,5 @@
         android:layout_height="wrap_content"
         android:text="@string/tabs_item_tab1"
         android:textColor="#3e6c91"
-        android:textSize="18sp" />
+        android:textSize="14sp" />
 </LinearLayout>

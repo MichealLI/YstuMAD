@@ -46,7 +46,7 @@ public class ErrorFragment extends Fragment {
         initView(view);
 
         manager = new MADDBManager(getContext());
-        modelList = manager.queryTable();
+        modelList = manager.querySubjectTable();
 
         if (modelList.size() > 0) {
             //有错题的情况下

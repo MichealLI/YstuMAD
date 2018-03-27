@@ -59,7 +59,7 @@ public class MADDBManager {
     /**
      * 删除表格
      */
-    public void deleteTable() {
+    public void deleteSubjectTable() {
         database.beginTransaction();
         try {
             database.delete("subject", null, null);
@@ -76,20 +76,20 @@ public class MADDBManager {
      *
      * @param index
      */
-    public void deleteDataFromIndex(int index) {
+    public void deleteSubjectDataFromIndex(int index) {
         database.delete("subject", "_id = ?", new String[]{index + " "});
     }
 
     /**
      * 遍历表格，查询错题
      */
-    public ArrayList<OperationModel> queryTable() {
+    public ArrayList<OperationModel> querySubjectTable() {
         ArrayList<OperationModel> result = new ArrayList<>();
-        String sql = "select * from subject";
+        String sql = "select * from subject order by _id desc";
         Cursor cursor = null;
         try {
-//            cursor = database.rawQuery(sql, null);
-            cursor = database.query("subject", null, null, null, null, null, null);
+            cursor = database.rawQuery(sql, null);
+//            cursor = database.query("subject", null, null, null, null, null, null);
             while (cursor.moveToNext()) {
                 OperationModel model = new OperationModel();
                 model.setFirstNum(cursor.getInt(cursor.getColumnIndex("firstNum")));

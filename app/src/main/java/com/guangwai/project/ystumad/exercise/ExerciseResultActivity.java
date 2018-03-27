@@ -213,5 +213,12 @@ public class ExerciseResultActivity extends BaseActivity implements View.OnClick
 
         return pieData;
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, HomepageActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
 

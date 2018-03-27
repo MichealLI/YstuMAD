@@ -2,6 +2,7 @@ package com.guangwai.project.ystumad.exercise;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,11 +10,16 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcel;
 import android.os.SystemClock;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Chronometer;
@@ -32,6 +38,7 @@ import com.google.gson.Gson;
 import com.guangwai.project.ystumad.R;
 import com.guangwai.project.ystumad.base.BaseActivity;
 import com.guangwai.project.ystumad.homepage.HomepageActivity;
+import com.guangwai.project.ystumad.util.AsrUtil;
 import com.guangwai.project.ystumad.util.Constant;
 import com.guangwai.project.ystumad.util.DataSaveUtil;
 import com.guangwai.project.ystumad.util.MADDBManager;
@@ -522,7 +529,15 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                         }
                     } else {
                         //答案错误的话，弹提示
-                        Toast.makeText(this, R.string.answer_is_wrong, Toast.LENGTH_SHORT).show();
+                        Vibrator vibrator = (Vibrator) getSystemService(Service.VIBRATOR_SERVICE);
+                        if (vibrator.hasVibrator()) {
+                            vibrator.vibrate(100);
+                        }
+                        View toastView = LayoutInflater.from(this).inflate(R.layout.toast_item, (ViewGroup) findViewById(R.id.toast_layout_root));
+                        Toast toast = new Toast(this);
+                        toast.setView(toastView);
+                        toast.setDuration(Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 }
 
@@ -537,6 +552,10 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                     }
                     mainContent.startAnimation(lastOutAnimation);
                 } else {
+                    Vibrator vibrator = (Vibrator) getSystemService(Service.VIBRATOR_SERVICE);
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(100);
+                    }
                     Toast.makeText(this, R.string.the_first_page, Toast.LENGTH_SHORT).show();
                 }
 
@@ -693,7 +712,7 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                 if (model.isRight()) {
                     //答对了
                     MADDBManager manager = new MADDBManager(PracticeActivity.this);
-                    manager.deleteDataFromIndex(model.getId());
+                    manager.deleteSubjectDataFromIndex(model.getId());
                 }
             }
         }
@@ -752,6 +771,10 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
             content = content + data;
             subjectResult.setText(content);
         } else {
+            Vibrator vibrator = (Vibrator) getSystemService(Service.VIBRATOR_SERVICE);
+            if (vibrator.hasVibrator()) {
+                vibrator.vibrate(100);
+            }
             Toast.makeText(this, R.string.max_num_number, Toast.LENGTH_SHORT).show();
         }
     }
@@ -887,6 +910,8 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                     //把语音内容筛选数字
                     String numContent = null;
                     if (activity.arsContent != null) {
+                        activity.arsContent = AsrUtil.convertChineseNumToNumber(activity.arsContent);
+                        activity.arsContent = AsrUtil.convertChineseToNumber(activity.arsContent);
                         numContent = activity.getTheNumberFromAsr(activity.arsContent);
                     }
                     if (numContent != null) {

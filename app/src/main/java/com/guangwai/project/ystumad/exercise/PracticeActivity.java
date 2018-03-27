@@ -69,7 +69,7 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
     private LinearLayout mainContent;
     private TextView subjectContent;
     private TextView subjectResult;
-    private ImageButton microphone;
+    private ImageView microphone;
 
     private TextView numOne;
     private TextView numTwo;
@@ -282,6 +282,7 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
         numEight.setOnClickListener(this);
         numNine.setOnClickListener(this);
         numZero.setOnClickListener(this);
+        microphone.setOnClickListener(this);
 
         microphone.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -302,6 +303,7 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                 return false;
             }
         });
+
 
         if (entranceMode == Constant.BREAK_MODE) {
             commit.setVisibility(View.INVISIBLE);
@@ -577,6 +579,8 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
             case R.id.break_back:
                 showDialogFromMode(entranceMode);
 
+                break;
+            case R.id.microphone:
                 break;
             case R.id.num_one:
                 addToReusltContent("1");

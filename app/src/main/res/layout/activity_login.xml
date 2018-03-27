@@ -43,14 +43,14 @@
             android:id="@+id/practice_mode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/button_common_select"
             android:gravity="center"
             android:padding="10dp"
             android:text="@string/app_practice_mode"
             android:textColor="#ffffff"
-            android:textSize="22sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/break_mode"
@@ -61,6 +61,6 @@
             android:padding="10dp"
             android:text="@string/app_break_mode"
             android:textColor="#ffffff"
-            android:textSize="22sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 </LinearLayout>

@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">YstuMAD</string>
-    <string name="app_title">口算题</string>
+    <string name="app_name">算算</string>
+    <string name="app_title">算算</string>
     <string name="app_welcome">欢迎来到小学生口算训练营</string>
     <string name="app_practice_mode">练习模式</string>
     <string name="app_break_mode">闯关模式</string>
@@ -82,4 +82,6 @@
     <string name="error_subject">错题集</string>
 
     <string name="error_no_subject">你很棒！目前还没有错题噢</string>
+
+    <string name="no_network">当前网络不可用，语音功能暂时关闭</string>
 </resources>

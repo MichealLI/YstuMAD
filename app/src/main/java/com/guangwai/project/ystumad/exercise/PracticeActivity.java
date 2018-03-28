@@ -6,6 +6,8 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -296,9 +298,16 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        //开始识别
-                        String json = "{\"accept-audio-data\":false,\"disable-punctuation\":false,\"accept-audio-volume\":true,\"pid\":1536}";
-                        asr.send(SpeechConstant.ASR_START, json, null, 0, 0);
+                        if (isNetworkAvailable(PracticeActivity.this)) {
+                            //如果有网络的话
+                            //开始识别
+                            String json = "{\"accept-audio-data\":false,\"disable-punctuation\":false,\"accept-audio-volume\":true,\"pid\":1536}";
+                            asr.send(SpeechConstant.ASR_START, json, null, 0, 0);
+                        } else {
+                            //没网络的话，不支持语音识别
+                            Toast.makeText(PracticeActivity.this, R.string.no_network, Toast.LENGTH_SHORT).show();
+                        }
+
                         break;
                     case MotionEvent.ACTION_UP:
                         //结束识别过程
@@ -317,6 +326,30 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
             lastOne.setVisibility(View.INVISIBLE);
         }
 
+    }
+
+    /**
+     * 检查网络是否可用
+     *
+     * @param context
+     * @return
+     */
+    public static boolean isNetworkAvailable(Context context) {
+
+        ConnectivityManager manager = (ConnectivityManager) context
+                .getApplicationContext().getSystemService(
+                        Context.CONNECTIVITY_SERVICE);
+
+        if (manager == null) {
+            return false;
+        }
+
+        NetworkInfo networkinfo = manager.getActiveNetworkInfo();
+
+        if (networkinfo == null || !networkinfo.isAvailable()) {
+            return false;
+        }
+        return true;
     }
 
     /**

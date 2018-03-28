@@ -112,6 +112,7 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
         setBreakImage(); // 设置关卡的图片
     }
 
+
     /**
      * 设置各个关卡的图片
      */
@@ -443,4 +444,5 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
         startActivity(intent);
         getActivity().finish();
     }
+
 }

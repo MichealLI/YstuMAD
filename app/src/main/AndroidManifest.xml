@@ -17,17 +17,21 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".homepage.HomepageActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".login.LoginActivity"
-            android:theme="@style/BaseTheme">
+            android:theme="@style/BaseTheme"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".exercise.PracticeActivity" />
+        <activity
+            android:name=".exercise.PracticeActivity"
+            android:windowSoftInputMode="adjustPan" />
 
         <meta-data
             android:name="com.baidu.speech.APP_ID"
@@ -43,8 +47,12 @@
             android:name="com.baidu.speech.VoiceRecognitionService"
             android:exported="false" />
 
-        <activity android:name=".exercise.ExerciseResultActivity" />
-        <activity android:name=".exercise.ExerciseAnalysisActivity"></activity>
+        <activity
+            android:name=".exercise.ExerciseResultActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".exercise.ExerciseAnalysisActivity"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

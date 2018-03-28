@@ -72,8 +72,8 @@
 
                 <ImageView
                     android:id="@+id/break_1"
-                    android:layout_width="41dp"
-                    android:layout_height="41dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/break1" />
             </LinearLayout>
 
@@ -85,8 +85,8 @@
 
                 <ImageView
                     android:id="@+id/break_2"
-                    android:layout_width="41dp"
-                    android:layout_height="41dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/lock" />
             </LinearLayout>
 
@@ -98,8 +98,8 @@
 
                 <ImageView
                     android:id="@+id/break_3"
-                    android:layout_width="41dp"
-                    android:layout_height="41dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/lock" />
             </LinearLayout>
 
@@ -111,8 +111,8 @@
 
                 <ImageView
                     android:id="@+id/break_4"
-                    android:layout_width="41dp"
-                    android:layout_height="41dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/lock" />
             </LinearLayout>
 
@@ -134,8 +134,8 @@
 
                 <ImageView
                     android:id="@+id/break_5"
-                    android:layout_width="41dp"
-                    android:layout_height="41dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/lock" />
             </LinearLayout>
 
@@ -147,8 +147,8 @@
 
                 <ImageView
                     android:id="@+id/break_6"
-                    android:layout_width="41dp"
-                    android:layout_height="41dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/lock" />
             </LinearLayout>
 
@@ -160,8 +160,8 @@
 
                 <ImageView
                     android:id="@+id/break_7"
-                    android:layout_width="41dp"
-                    android:layout_height="41dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/lock" />
             </LinearLayout>
 
@@ -173,8 +173,8 @@
 
                 <ImageView
                     android:id="@+id/break_8"
-                    android:layout_width="41dp"
-                    android:layout_height="41dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/lock" />
             </LinearLayout>
 
@@ -196,8 +196,8 @@
 
                 <ImageView
                     android:id="@+id/break_9"
-                    android:layout_width="41dp"
-                    android:layout_height="41dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/lock" />
             </LinearLayout>
 
@@ -209,8 +209,8 @@
 
                 <ImageView
                     android:id="@+id/break_10"
-                    android:layout_width="41dp"
-                    android:layout_height="41dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/lock" />
             </LinearLayout>
 
@@ -222,8 +222,8 @@
 
                 <ImageView
                     android:id="@+id/break_11"
-                    android:layout_width="41dp"
-                    android:layout_height="41dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/lock" />
             </LinearLayout>
 
@@ -235,8 +235,8 @@
 
                 <ImageView
                     android:id="@+id/break_12"
-                    android:layout_width="41dp"
-                    android:layout_height="41dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/lock" />
             </LinearLayout>
         </LinearLayout>
@@ -257,8 +257,8 @@
 
                 <ImageView
                     android:id="@+id/break_13"
-                    android:layout_width="41dp"
-                    android:layout_height="41dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/lock" />
             </LinearLayout>
 
@@ -270,8 +270,8 @@
 
                 <ImageView
                     android:id="@+id/break_14"
-                    android:layout_width="41dp"
-                    android:layout_height="41dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/lock" />
             </LinearLayout>
 
@@ -283,8 +283,8 @@
 
                 <ImageView
                     android:id="@+id/break_15"
-                    android:layout_width="41dp"
-                    android:layout_height="41dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/lock" />
             </LinearLayout>
 
@@ -296,8 +296,8 @@
 
                 <ImageView
                     android:id="@+id/break_16"
-                    android:layout_width="41dp"
-                    android:layout_height="41dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/lock" />
             </LinearLayout>
 
@@ -319,8 +319,8 @@
 
                 <ImageView
                     android:id="@+id/break_17"
-                    android:layout_width="41dp"
-                    android:layout_height="41dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/lock" />
             </LinearLayout>
 
@@ -332,8 +332,8 @@
 
                 <ImageView
                     android:id="@+id/break_18"
-                    android:layout_width="41dp"
-                    android:layout_height="41dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/lock" />
             </LinearLayout>
 
@@ -345,8 +345,8 @@
 
                 <ImageView
                     android:id="@+id/break_19"
-                    android:layout_width="41dp"
-                    android:layout_height="41dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/lock" />
             </LinearLayout>
 
@@ -358,8 +358,8 @@
 
                 <ImageView
                     android:id="@+id/break_20"
-                    android:layout_width="41dp"
-                    android:layout_height="41dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/lock" />
             </LinearLayout>
         </LinearLayout>

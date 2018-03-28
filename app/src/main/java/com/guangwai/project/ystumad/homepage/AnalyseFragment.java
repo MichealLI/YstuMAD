@@ -122,7 +122,9 @@ public class AnalyseFragment extends Fragment {
         String strRightNum = String.valueOf(rightNum);
         subjectNum.setText(sum + "");
         subjectRightNum.setText(strRightNum);
-        rightRate.setText((int) (rightNum * 1.0 / sum * 100) + "%");
+        double rate = rightNum * 1.0 / sum * 100;
+        rate = (double) (Math.round(rate * 100)) / 100;
+        rightRate.setText(rate + "%");
     }
 
     public static AnalyseFragment newInstance() {

@@ -79,6 +79,8 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
     private TextView subjectContent;
     private TextView subjectResult;
     private ImageView microphone;
+    private ImageView voiceLeft;
+    private ImageView voiceRight;
 
     private TextView numOne;
     private TextView numTwo;
@@ -254,6 +256,8 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
         subjectContent = findViewById(R.id.subject_content);
         subjectResult = findViewById(R.id.subject_result);
         microphone = findViewById(R.id.microphone);
+        voiceLeft = findViewById(R.id.voice_left);
+        voiceRight = findViewById(R.id.voice_right);
 
 
         //0 - 9
@@ -301,6 +305,8 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                         if (isNetworkAvailable(PracticeActivity.this)) {
                             //如果有网络的话
                             //开始识别
+                            voiceLeft.setVisibility(View.VISIBLE);
+                            voiceRight.setVisibility(View.VISIBLE);
                             String json = "{\"accept-audio-data\":false,\"disable-punctuation\":false,\"accept-audio-volume\":true,\"pid\":1536}";
                             asr.send(SpeechConstant.ASR_START, json, null, 0, 0);
                         } else {
@@ -311,6 +317,12 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                         break;
                     case MotionEvent.ACTION_UP:
                         //结束识别过程
+                        if (voiceLeft.getVisibility() == View.VISIBLE) {
+                            voiceLeft.setVisibility(View.GONE);
+                        }
+                        if (voiceRight.getVisibility() == View.VISIBLE) {
+                            voiceRight.setVisibility(View.GONE);
+                        }
                         asr.send(SpeechConstant.ASR_STOP, null, null, 0, 0); // 发送停止录音事件，提前结束录音等待识别结果
                         break;
                     default:

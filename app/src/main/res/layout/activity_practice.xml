@@ -162,13 +162,37 @@
             android:orientation="vertical"
             android:weightSum="5">
 
-            <ImageView
-                android:id="@+id/microphone"
-                android:layout_width="35dp"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/microphone_select_style" />
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/microphone"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/microphone_unpressed" />
+
+                <ImageView
+                    android:id="@+id/voice_left"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/microphone"
+                    android:src="@drawable/voice_left"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/voice_right"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/microphone"
+                    android:src="@drawable/voice_right"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

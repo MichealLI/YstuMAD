@@ -11,6 +11,55 @@ public class AsrUtil {
      * 把返回的中文数字转为对应的阿拉伯数字
      */
     public static String convertChineseNumToNumber(String content) {
+        if (content.contains("两百")) {
+            content = content.replace("两百", "200");
+        }
+        if (content.contains("三百")) {
+            content = content.replace("三百", "300");
+        }
+        if (content.contains("四百")) {
+            content = content.replace("四百", "400");
+        }
+        if (content.contains("五百")) {
+            content = content.replace("五百", "500");
+        }
+        if (content.contains("六百")) {
+            content = content.replace("六百", "600");
+        }
+        if (content.contains("七百")) {
+            content = content.replace("七百", "700");
+        }
+        if (content.contains("八百")) {
+            content = content.replace("八百", "800");
+        }
+        if (content.contains("九百")) {
+            content = content.replace("九百", "900");
+        }
+
+        if (content.contains("三十")) {
+            content = content.replace("三十", "30");
+        }
+        if (content.contains("四十")) {
+            content = content.replace("四十", "40");
+        }
+        if (content.contains("五十")) {
+            content = content.replace("五十", "50");
+        }
+        if (content.contains("六十")) {
+            content = content.replace("六十", "60");
+        }
+        if (content.contains("七十")) {
+            content = content.replace("七十", "70");
+        }
+        if (content.contains("八十")) {
+            content = content.replace("八十", "80");
+        }
+        if (content.contains("九十")) {
+            content = content.replace("九十", "90");
+        }
+        if (content.contains("一百")) {
+            content = content.replace("一百", "100");
+        }
 
         if (content.contains("十一")) {
             content = content.replace("十一", "11");
@@ -99,6 +148,9 @@ public class AsrUtil {
         }
         if (content.contains("吴")) {
             content = content.replace("吴", "5");
+        }
+        if (content.contains("酒吧")) {
+            content = content.replace("酒吧", "900");
         }
         return content;
     }

@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:background="@drawable/table_style"
         android:gravity="center_vertical"
         android:orientation="vertical"
         android:paddingBottom="10dp"
@@ -84,6 +85,7 @@
                 android:maxLength="3"
                 android:padding="10dp"
                 android:text="5"
+                android:gravity="center"
                 android:textSize="14dp" />
 
             <TextView

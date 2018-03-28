@@ -13,7 +13,7 @@
 
     <string name="subject_difficulty">难度选择：</string>
     <string name="subject_number">题量设置：</string>
-    <string name="subject_number_tip">建议10-60最佳</string>
+    <string name="subject_number_tip">建议10-60最佳,最大999</string>
     <string name="subject_range">取值范围：</string>
     <string name="single_mode">简单（+、-）</string>
     <string name="mixed_mode">复杂（*、/）</string>

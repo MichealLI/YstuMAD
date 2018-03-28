@@ -97,13 +97,20 @@ public class RandomNumberFactory {
         } else {
             secondNum = random.nextInt(max + 1);
         }
-        OperationModel model = new OperationModel();
-        model.setFirstNum(firstNum);
-        model.setSecondNum(secondNum);
-        model.setOperation(Constant.OPERATION_MULTIPLY);
-        model.setResultNum(firstNum * secondNum);
-        model.setMode(mode);
-        return model;
+        if (firstNum * secondNum <= 999) {
+            //最大为三位数
+            OperationModel model = new OperationModel();
+            model.setFirstNum(firstNum);
+            model.setSecondNum(secondNum);
+            model.setOperation(Constant.OPERATION_MULTIPLY);
+            model.setResultNum(firstNum * secondNum);
+            model.setMode(mode);
+            return model;
+        } else {
+            return getMultiplyRandomModel(max, mode);
+        }
+
+
     }
 
     /**

@@ -81,6 +81,7 @@
                 android:background="@drawable/num_shape_corners"
                 android:cursorVisible="false"
                 android:inputType="number"
+                android:maxLength="3"
                 android:padding="10dp"
                 android:text="5"
                 android:textSize="14dp" />
@@ -125,6 +126,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:background="@drawable/button_common_select"
-        android:textColor="#ffffff"
-        android:text="@string/app_begin" />
+        android:text="@string/app_begin"
+        android:textColor="#ffffff" />
 </LinearLayout>

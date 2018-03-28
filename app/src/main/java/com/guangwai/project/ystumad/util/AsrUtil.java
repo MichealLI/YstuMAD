@@ -97,6 +97,9 @@ public class AsrUtil {
         if (content.contains("石")) {
             content = content.replace("石", "10");
         }
+        if (content.contains("吴")) {
+            content = content.replace("吴", "5");
+        }
         return content;
     }
 }

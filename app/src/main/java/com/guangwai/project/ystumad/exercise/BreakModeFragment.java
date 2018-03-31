@@ -1,9 +1,11 @@
 package com.guangwai.project.ystumad.exercise;
 
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -222,6 +224,10 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
                     getBreakSubjectAndJump("break2", 2);
                     break;
                 } else {
+                    Vibrator vibrator = (Vibrator) getContext().getSystemService(Service.VIBRATOR_SERVICE);
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(100);
+                    }
                     Toast.makeText(getContext(), R.string.no_break, Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -231,6 +237,10 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
                     getBreakSubjectAndJump("break3", 3);
                     break;
                 } else {
+                    Vibrator vibrator = (Vibrator) getContext().getSystemService(Service.VIBRATOR_SERVICE);
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(100);
+                    }
                     Toast.makeText(getContext(), R.string.no_break, Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -240,6 +250,10 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
                     getBreakSubjectAndJump("break4", 4);
                     break;
                 } else {
+                    Vibrator vibrator = (Vibrator) getContext().getSystemService(Service.VIBRATOR_SERVICE);
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(100);
+                    }
                     Toast.makeText(getContext(), R.string.no_break, Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -249,6 +263,10 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
                     getBreakSubjectAndJump("break5", 5);
                     break;
                 } else {
+                    Vibrator vibrator = (Vibrator) getContext().getSystemService(Service.VIBRATOR_SERVICE);
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(100);
+                    }
                     Toast.makeText(getContext(), R.string.no_break, Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -258,6 +276,10 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
                     getBreakSubjectAndJump("break6", 6);
                     break;
                 } else {
+                    Vibrator vibrator = (Vibrator) getContext().getSystemService(Service.VIBRATOR_SERVICE);
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(100);
+                    }
                     Toast.makeText(getContext(), R.string.no_break, Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -267,6 +289,10 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
                     getBreakSubjectAndJump("break7", 7);
                     break;
                 } else {
+                    Vibrator vibrator = (Vibrator) getContext().getSystemService(Service.VIBRATOR_SERVICE);
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(100);
+                    }
                     Toast.makeText(getContext(), R.string.no_break, Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -276,6 +302,10 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
                     getBreakSubjectAndJump("break8", 8);
                     break;
                 } else {
+                    Vibrator vibrator = (Vibrator) getContext().getSystemService(Service.VIBRATOR_SERVICE);
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(100);
+                    }
                     Toast.makeText(getContext(), R.string.no_break, Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -285,6 +315,10 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
                     getBreakSubjectAndJump("break9", 9);
                     break;
                 } else {
+                    Vibrator vibrator = (Vibrator) getContext().getSystemService(Service.VIBRATOR_SERVICE);
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(100);
+                    }
                     Toast.makeText(getContext(), R.string.no_break, Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -294,6 +328,10 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
                     getBreakSubjectAndJump("break10", 10);
                     break;
                 } else {
+                    Vibrator vibrator = (Vibrator) getContext().getSystemService(Service.VIBRATOR_SERVICE);
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(100);
+                    }
                     Toast.makeText(getContext(), R.string.no_break, Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -303,6 +341,10 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
                     getBreakSubjectAndJump("break11", 11);
                     break;
                 } else {
+                    Vibrator vibrator = (Vibrator) getContext().getSystemService(Service.VIBRATOR_SERVICE);
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(100);
+                    }
                     Toast.makeText(getContext(), R.string.no_break, Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -312,6 +354,10 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
                     getBreakSubjectAndJump("break12", 12);
                     break;
                 } else {
+                    Vibrator vibrator = (Vibrator) getContext().getSystemService(Service.VIBRATOR_SERVICE);
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(100);
+                    }
                     Toast.makeText(getContext(), R.string.no_break, Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -321,6 +367,10 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
                     getBreakSubjectAndJump("break13", 13);
                     break;
                 } else {
+                    Vibrator vibrator = (Vibrator) getContext().getSystemService(Service.VIBRATOR_SERVICE);
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(100);
+                    }
                     Toast.makeText(getContext(), R.string.no_break, Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -330,6 +380,10 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
                     getBreakSubjectAndJump("break14", 14);
                     break;
                 } else {
+                    Vibrator vibrator = (Vibrator) getContext().getSystemService(Service.VIBRATOR_SERVICE);
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(100);
+                    }
                     Toast.makeText(getContext(), R.string.no_break, Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -339,6 +393,10 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
                     getBreakSubjectAndJump("break15", 15);
                     break;
                 } else {
+                    Vibrator vibrator = (Vibrator) getContext().getSystemService(Service.VIBRATOR_SERVICE);
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(100);
+                    }
                     Toast.makeText(getContext(), R.string.no_break, Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -348,6 +406,10 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
                     getBreakSubjectAndJump("break16", 16);
                     break;
                 } else {
+                    Vibrator vibrator = (Vibrator) getContext().getSystemService(Service.VIBRATOR_SERVICE);
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(100);
+                    }
                     Toast.makeText(getContext(), R.string.no_break, Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -357,6 +419,10 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
                     getBreakSubjectAndJump("break17", 17);
                     break;
                 } else {
+                    Vibrator vibrator = (Vibrator) getContext().getSystemService(Service.VIBRATOR_SERVICE);
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(100);
+                    }
                     Toast.makeText(getContext(), R.string.no_break, Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -366,6 +432,10 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
                     getBreakSubjectAndJump("break18", 18);
                     break;
                 } else {
+                    Vibrator vibrator = (Vibrator) getContext().getSystemService(Service.VIBRATOR_SERVICE);
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(100);
+                    }
                     Toast.makeText(getContext(), R.string.no_break, Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -375,6 +445,10 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
                     getBreakSubjectAndJump("break19", 19);
                     break;
                 } else {
+                    Vibrator vibrator = (Vibrator) getContext().getSystemService(Service.VIBRATOR_SERVICE);
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(100);
+                    }
                     Toast.makeText(getContext(), R.string.no_break, Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -384,6 +458,10 @@ public class BreakModeFragment extends Fragment implements View.OnClickListener 
                     getBreakSubjectAndJump("break20", 20);
                     break;
                 } else {
+                    Vibrator vibrator = (Vibrator) getContext().getSystemService(Service.VIBRATOR_SERVICE);
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(100);
+                    }
                     Toast.makeText(getContext(), R.string.no_break, Toast.LENGTH_SHORT).show();
                 }
                 break;

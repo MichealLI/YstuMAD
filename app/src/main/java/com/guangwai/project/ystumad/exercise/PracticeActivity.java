@@ -368,11 +368,11 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
      * 初始化语音
      */
     private void initAsr() {
+        //初始化语音
         asr = EventManagerFactory.create(this, "asr");
         EventListener listener = new EventListener() {
             @Override
             public void onEvent(String name, String params, byte[] data, int offset, int length) {
-
                 if (name.equals(SpeechConstant.CALLBACK_EVENT_ASR_READY)) {
                     // 引擎就绪，可以说话，一般在收到此事件后通过UI通知用户可以说话了
                     Toast.makeText(PracticeActivity.this, "用户可以说话了", Toast.LENGTH_SHORT).show();
@@ -386,7 +386,6 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                 } else if (name.equals(SpeechConstant.CALLBACK_EVENT_ASR_FINISH)) {
                     uiHandler.sendEmptyMessage(Constant.ASR_END);
                 }
-                // ... 支持的输出事件和事件支持的事件参数见“输入和输出参数”一节
             }
 
         };

@@ -110,7 +110,7 @@ public class HomepageActivity extends FragmentActivity implements View.OnClickLi
     }
 
     /**
-     * 设置当前所在的tab
+     * 设置当前所在tab的fragment
      */
     private void setCurrentTab(int index) {
         resetTab(); //初始化图标

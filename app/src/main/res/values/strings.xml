@@ -5,7 +5,7 @@
     <string name="app_practice_mode">练习模式</string>
     <string name="app_break_mode">闯关模式</string>
     <string name="tabs_height">60dp</string>
-    <string name="tabs_item_tab1"> 练习</string>
+    <string name="tabs_item_tab1"> 训练</string>
     <string name="tabs_item_tab2"> 分析</string>
     <string name="tabs_item_tab3">错题</string>
     <string name="tabs_item_tab_size">25dp</string>

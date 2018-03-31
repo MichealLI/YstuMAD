@@ -6,6 +6,7 @@ android {
         applicationId "com.guangwai.project.ystumad"
         minSdkVersion 16
         targetSdkVersion 22
+        buildToolsVersion "27.0.2"
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

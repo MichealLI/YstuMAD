@@ -71,19 +71,24 @@ public class PracticeModeFragment extends Fragment implements View.OnClickListen
                     String content = subjectNum.getText().toString();
                     int num = Integer.parseInt(content); //题目数量
                     int max = subjectRange.getSelectedItemPosition() * 10 + 10;
-                    Intent intent = new Intent(getContext(), PracticeActivity.class);
-                    intent.putExtra("mode", Constant.PRATICE_MODE);
-                    intent.putExtra("practice_num", num);
-                    intent.putExtra("practice_max", max);
-                    if (modeChoose.getCheckedRadioButtonId() == R.id.single_mode) {
-                        //简单模式
-                        intent.putExtra("practice_mode", Constant.SINGLE_MODE);
-                    } else if (modeChoose.getCheckedRadioButtonId() == R.id.mixed_mode) {
-                        //复杂模式
-                        intent.putExtra("practice_mode", Constant.MIXED_MODE);
+                    if (num > 0) {
+                        Intent intent = new Intent(getContext(), PracticeActivity.class);
+                        intent.putExtra("mode", Constant.PRATICE_MODE);
+                        intent.putExtra("practice_num", num);
+                        intent.putExtra("practice_max", max);
+                        if (modeChoose.getCheckedRadioButtonId() == R.id.single_mode) {
+                            //简单模式
+                            intent.putExtra("practice_mode", Constant.SINGLE_MODE);
+                        } else if (modeChoose.getCheckedRadioButtonId() == R.id.mixed_mode) {
+                            //复杂模式
+                            intent.putExtra("practice_mode", Constant.MIXED_MODE);
+                        }
+                        startActivity(intent);
+                        getActivity().finish();
+                    } else {
+                        Toast.makeText(getContext(), R.string.subject_num_must_positive, Toast.LENGTH_SHORT).show();
                     }
-                    startActivity(intent);
-                    getActivity().finish();
+
                 } else {
                     //输入框为空，不能跳转去做题
                     Toast.makeText(getContext(), R.string.subject_is_empty, Toast.LENGTH_SHORT).show();

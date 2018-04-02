@@ -84,4 +84,8 @@
     <string name="error_no_subject">你很棒！目前还没有错题噢</string>
 
     <string name="no_network">当前网络不可用，语音功能暂时关闭</string>
+
+    <string name="subject_num_must_positive">练习的题量必须大于0</string>
+
+
 </resources>

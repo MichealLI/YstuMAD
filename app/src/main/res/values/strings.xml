@@ -62,6 +62,7 @@
     <string name="answer_is_wrong">答案错误！！</string>
 
     <string name="break_successful">闯关成功！是否结束本次关卡</string>
+    <string name="break_end">闯关成功！恭喜你通过了所有的关卡</string>
     <string name="break_failed">闯关失败！期待你下次再来</string>
 
     <string name="break_nm">第%d关卡</string>

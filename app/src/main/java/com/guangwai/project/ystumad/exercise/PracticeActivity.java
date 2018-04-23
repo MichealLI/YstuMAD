@@ -533,7 +533,7 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                         //如果答案正确的话，才可以进行下一题
                         if (currentIndex < num - 1) {
                             mainContent.startAnimation(nextOutAnimation);
-                        } else {
+                        } else if (currentBreakNum <= 19) {
                             final MaterialDialog mDialog = new MaterialDialog(this);
                             mDialog.setMessage(R.string.break_successful).setPositiveButton(R.string.commit, new View.OnClickListener() {
                                 @Override
@@ -555,15 +555,16 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                                         String tag = "break" + currentBreakNum;
                                         saveUtil.setBreakSubjectList(tag, modelList);
                                     }
-
+                                    int nextBreakNum = currentBreakNum + 1;
+                                    String subjectName = "break" + nextBreakNum;
+                                    getBreakSubjectAndJump(subjectName, nextBreakNum);
                                     //进行页面的跳转
 //                                    Intent intent = new Intent(PracticeActivity.this, HomepageActivity.class);
 //                                    intent.putExtra("mode", Constant.BREAK_MODE);
 //                                    startActivity(intent);
 //                                    finish();
-                                    int nextBreakNum = currentBreakNum + 1;
-                                    String subjectName = "break" + nextBreakNum;
-                                    getBreakSubjectAndJump(subjectName, nextBreakNum);
+
+
                                 }
                             }).setNegativeButton(R.string.cancel, new View.OnClickListener() {
                                 @Override
@@ -572,6 +573,37 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                                 }
                             });
                             mDialog.setCanceledOnTouchOutside(true);
+                            mDialog.show();
+                        } else if (currentBreakNum == 20) {
+                            //闯关完成
+                            final MaterialDialog mDialog = new MaterialDialog(this);
+                            mDialog.setMessage(R.string.break_end).setPositiveButton(R.string.commit, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    mDialog.dismiss();
+                                    //保存通过的关卡数
+                                    SharedPreferences pre = getSharedPreferences(Constant.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
+                                    int breakNum = pre.getInt("breakNum", 0);
+                                    if (currentBreakNum == breakNum + 1) {
+                                        //当前关卡是之前没闯过的，需要保存信息， 如果当前关卡是之前闯过的，不需要保存信息
+                                        int currentBreakNum = breakNum + 1;
+                                        SharedPreferences.Editor editor = pre.edit();
+                                        editor.putInt("breakNum", currentBreakNum);
+                                        editor.commit();
+
+                                        //保存该关卡的题库
+                                        DataSaveUtil saveUtil = new DataSaveUtil(PracticeActivity.this);
+                                        String tag = "break" + currentBreakNum;
+                                        saveUtil.setBreakSubjectList(tag, modelList);
+                                    }
+                                    //进行页面的跳转
+                                    Intent intent = new Intent(PracticeActivity.this, HomepageActivity.class);
+                                    intent.putExtra("mode", Constant.BREAK_MODE);
+                                    startActivity(intent);
+                                    finish();
+
+                                }
+                            });
                             mDialog.show();
                         }
                     } else {

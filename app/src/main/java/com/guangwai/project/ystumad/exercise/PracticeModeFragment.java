@@ -54,6 +54,7 @@ public class PracticeModeFragment extends Fragment implements View.OnClickListen
         mixedMode = view.findViewById(R.id.mixed_mode);
 
         begin.setOnClickListener(this);
+        subjectNum.setSelection(subjectNum.getText().length());
 
     }
 

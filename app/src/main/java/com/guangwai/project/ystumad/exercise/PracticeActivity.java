@@ -557,10 +557,13 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                                     }
 
                                     //进行页面的跳转
-                                    Intent intent = new Intent(PracticeActivity.this, HomepageActivity.class);
-                                    intent.putExtra("mode", Constant.BREAK_MODE);
-                                    startActivity(intent);
-                                    finish();
+//                                    Intent intent = new Intent(PracticeActivity.this, HomepageActivity.class);
+//                                    intent.putExtra("mode", Constant.BREAK_MODE);
+//                                    startActivity(intent);
+//                                    finish();
+                                    int nextBreakNum = currentBreakNum + 1;
+                                    String subjectName = "break" + nextBreakNum;
+                                    getBreakSubjectAndJump(subjectName, nextBreakNum);
                                 }
                             }).setNegativeButton(R.string.cancel, new View.OnClickListener() {
                                 @Override
@@ -977,4 +980,31 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
     public void onBackPressed() {
         showDialogFromMode(entranceMode);
     }
+
+    public void getBreakSubjectAndJump(String subjectName, int currentNum) {
+        //首先从本地获取题库，如果能获取到题库，就不随机生成题目，否则随机生成题库
+        DataSaveUtil saveUtil = new DataSaveUtil(this);
+        ArrayList<OperationModel> modelList = saveUtil.getBreakSubjectList(subjectName);
+        if (modelList.size() <= 0) {
+            //本地没保持到，需要随机生成
+//            int countSum = 1 + currentNum / 2 * 5; // 题数
+//            int max = 10 * (currentNum + 1) / 2; //最大数
+            int countSum = 1; //测试用例
+            int max = 2;
+            int count = 0; //当前生成的题数
+            while (count < countSum) {
+                int operation = RandomNumberFactory.getRandomOperation();
+                OperationModel model = RandomNumberFactory.getRandomModel(operation, max, Constant.BREAK_MODE);
+                modelList.add(model);
+                count++;
+            }
+        }
+        Intent intent = new Intent(this, PracticeActivity.class);
+        intent.putExtra("mode", Constant.BREAK_MODE);
+        intent.putExtra("currentBreakNum", currentNum);
+        intent.putParcelableArrayListExtra("break_subject", modelList);
+        startActivity(intent);
+        finish();
+    }
+
 }

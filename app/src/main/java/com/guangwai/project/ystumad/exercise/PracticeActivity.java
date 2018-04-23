@@ -596,7 +596,6 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                                         String tag = "break" + currentBreakNum;
                                         saveUtil.setBreakSubjectList(tag, modelList);
                                     }
-
                                     //进行页面的跳转
                                     Intent intent = new Intent(PracticeActivity.this, HomepageActivity.class);
                                     intent.putExtra("mode", Constant.BREAK_MODE);

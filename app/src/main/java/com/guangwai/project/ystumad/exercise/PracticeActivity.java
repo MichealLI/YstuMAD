@@ -590,7 +590,6 @@ public class PracticeActivity extends BaseActivity implements View.OnClickListen
                                         SharedPreferences.Editor editor = pre.edit();
                                         editor.putInt("breakNum", currentBreakNum);
                                         editor.commit();
-
                                         //保存该关卡的题库
                                         DataSaveUtil saveUtil = new DataSaveUtil(PracticeActivity.this);
                                         String tag = "break" + currentBreakNum;
